@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Belajar dan latihan public speaking untuk siswa SMP dan SMK.">
+<title>Berani Bicara — Studio Public Speaking</title>
+<style>
+:root{color-scheme:light;--ink:#241b2f;--muted:#655b70;--paper:#faf8fc;--white:#fff;--line:#e8dfed;--plum:#2c193e;--purple:#652da0;--light:#f2e9fa;--lime:#dcf59c;--pink:#ffbcb9;--radius:22px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "DM Sans","Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit;color:inherit}
+button,a,input,textarea,select,summary{touch-action:manipulation}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--purple);outline-offset:4px}
+[hidden]{display:none!important}
+h1,h2,h3,p{margin-top:0}
+h1,h2,h3{line-height:1.12;letter-spacing:-.035em}
+h2{font-size:clamp(1.65rem,4vw,2.25rem);margin-bottom:.55em}
+h3{font-size:1.25rem;margin-bottom:.5em}
+a{color:var(--purple)}
+.shell{width:min(1100px,calc(100% - 40px));margin:auto}
+header{background:var(--white);border-bottom:1px solid var(--line)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:22px;min-height:74px}
+.brand{color:var(--ink);text-decoration:none;display:inline-flex;gap:10px;align-items:center;font-weight:850;white-space:nowrap;font-size:1.12rem}
+.mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--plum);color:var(--lime);font-weight:900;letter-spacing:-.07em}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{padding:8px 12px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:700;font-size:.9rem}
+nav a[aria-current]{background:var(--light);color:var(--purple)}
+main{padding-block:32px 56px}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:350px;padding:clamp(28px,6vw,66px);border-radius:30px;background:var(--plum);color:white;display:flex;align-items:center}
+.hero-content{max-width:590px;position:relative;z-index:1}
+.hero h1{font-size:clamp(2.65rem,6.5vw,5.05rem);margin:0 0 18px;line-height:.97;letter-spacing:-.075em}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p:not(.eyebrow){max-width:390px;color:#e1d4eb;margin-bottom:24px}
+.eyebrow{font-size:.75rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.hero .eyebrow{color:var(--pink)}
+.hero-graphic{position:absolute;right:clamp(24px,8vw,105px);top:50%;transform:translateY(-50%) rotate(-12deg);width:min(29vw,315px);aspect-ratio:1;border-radius:44% 56% 54% 46%;background:var(--pink);display:flex;align-items:center;justify-content:center;gap:5%;box-shadow:20px 18px 0 #784496}
+.hero-graphic i{display:block;width:7%;height:var(--height);background:var(--plum);border-radius:999px}
+.hero-graphic:before,.hero-graphic:after{content:"";position:absolute;width:12%;aspect-ratio:1;background:var(--lime);border-radius:50%}
+.hero-graphic:before{top:-7%;right:10%}.hero-graphic:after{bottom:0;left:-7%;width:7%}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;min-height:43px;padding:8px 16px;border:1px solid transparent;border-radius:11px;background:var(--purple);color:white;font-size:.92rem;font-weight:750;text-decoration:none;text-align:center}
+.btn:hover:not(:disabled){filter:brightness(.93)}
+.btn.alt{background:var(--light);color:#51227e}.btn.ghost{background:var(--white);color:var(--ink);border-color:var(--line)}.btn.lime{background:var(--lime);color:var(--plum)}
+.hero .btn.alt{background:#533669;color:white}
+.hero :focus-visible{outline-color:var(--lime)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.section-head{margin-bottom:22px}.section-head p{margin-bottom:0}
+.muted,.section-head p,.panel>p,.module p{color:var(--muted)}
+.home-section{margin-top:32px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.split{display:grid;gap:16px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
+.panel,.module,.tile{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white)}
+.tile{display:flex;flex-direction:column;gap:8px}.tile p{margin:0;color:var(--muted)}
+.tile a{width:fit-content;font-weight:750;margin-top:auto;padding-top:7px}
+.tile:nth-child(2){background:#f5edfc}.tile:nth-child(3){background:#f0f7df}
+.module{display:flex;flex-direction:column;align-items:flex-start}
+.module>button{margin-top:auto}
+.tag{font-size:.73rem;letter-spacing:.04em;font-weight:800;background:var(--light);color:#51227e;border-radius:999px;padding:4px 9px;display:inline-block;width:fit-content;margin-bottom:12px}
+.tag.done{background:#eef6db;color:#3e5316}
+.stats{margin-bottom:20px}
+.stat strong{display:block;color:var(--purple);font-size:2.1rem;line-height:1.15;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted)}
+.stack>*+*{margin-top:14px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-weight:700;font-size:.9rem}
+select,input[type=text],textarea{display:block;width:100%;margin-top:5px;padding:9px 11px;background:#fcfaff;border:1px solid #d8c9e2;border-radius:9px;font-weight:400}
+textarea{resize:vertical;min-height:76px}
+.topic{background:var(--light);padding:16px;border-radius:14px}.topic strong{display:block;font-size:1.15rem}.topic p{margin:6px 0 0}
+.clock{padding:22px;background:var(--plum);color:white;border-radius:16px}.clock p{margin-bottom:4px;color:#e7d6f0}
+.timer{display:block;font-weight:850;color:var(--lime);font-size:clamp(3rem,7vw,4.3rem);line-height:1.2;font-variant-numeric:tabular-nums}
+.track{display:block;width:100%;height:8px;accent-color:var(--purple)}
+.clock .track{accent-color:var(--lime);margin:10px 0 14px}
+.status{color:#4d286e;font-weight:700;margin:8px 0 0;min-height:1.5em}
+.status:empty{display:none}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend{padding:0;font-weight:800}
+.options{display:grid;gap:8px;margin-top:14px}
+.option{display:flex;align-items:start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:9px}
+.option:has(input:checked){background:var(--light);border-color:#b185cc}
+.option input{accent-color:var(--purple);margin-top:.35em}
+.history{padding:0;margin:16px 0 0;list-style:none}
+.history li{padding:13px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.history li p{margin:3px 0;white-space:pre-wrap}
+.lesson-body blockquote{margin:14px 0;padding:14px;border-left:4px solid #9868b5;background:var(--light);border-radius:0 12px 12px 0}
+.lesson-body ol{padding-left:23px}.lesson-body li+li{margin-top:7px}
+.qbox{max-width:720px}
+footer{border-top:1px solid var(--line);color:var(--muted);padding:18px 0;font-size:.88rem}
+@media(max-width:850px){.hero-graphic{opacity:.42;right:5%}.hero-content{max-width:480px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.shell{width:calc(100% - 28px)}.bar{align-items:flex-start;flex-direction:column;gap:8px;padding:10px 0}.bar nav{gap:3px}nav a{padding:7px 8px}.hero{min-height:310px}.hero-graphic{display:none}.grid,.split{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.panel,.tile,.module{padding:17px}}
+@media(max-width:350px){.fields{grid-template-columns:1fr}}
+:root{--ink:#282720;--muted:#5e594f;--paper:#f5f0e6;--white:#fffcf6;--line:#d8cdbd;--plum:#232623;--purple:#943122;--light:#efe5d8;--lime:#f3d6a1;--pink:#a33b2d;--radius:7px}
+h1,h2{font-family:Georgia,serif;font-weight:500}
+.mark,.btn,.clock{border-radius:5px}
+nav a[aria-current]{background:transparent;border-radius:0;box-shadow:inset 0 -2px var(--purple)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,5vw,68px);padding:40px 0;background:transparent;color:var(--ink);border-radius:0;border-block:1px solid var(--line)}
+.hero h1{font-weight:500;letter-spacing:-.065em}
+.hero h1 em,.hero .eyebrow{color:var(--purple)}
+.hero p:not(.eyebrow),.clock p{color:var(--muted)}
+.clock p{color:#e7ddcc}
+.hero .btn.alt,.btn.alt{background:var(--light);color:var(--ink)}
+.hero :focus-visible{outline-color:var(--purple)}
+.prompt-card{margin:0;padding:26px;background:var(--white);border:1px solid var(--line);border-top:4px solid var(--purple)}
+.prompt-card figcaption{font-size:.83rem;color:var(--purple);font-weight:750}
+.prompt-card blockquote{font:clamp(1.5rem,3.4vw,2.55rem)/1.15 Georgia,serif;margin:18px 0 0}
+.tile:nth-child(n){background:transparent;border-width:0 0 1px;border-radius:0;padding-inline:0}
+.topic{border-left:3px solid var(--purple);border-radius:0}
+select,input[type=text],textarea{background:var(--white);border-color:var(--line)}
+.studio-output{min-width:0}
+.capture-preview{position:relative;display:grid;place-items:center;aspect-ratio:16/9;background:#232623;color:#eee5d9;border-radius:5px;overflow:hidden}
+.capture-preview video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.capture-badge{position:absolute;top:10px;left:10px;background:#943122;color:white;padding:3px 9px;border-radius:3px;font-size:.8rem}
+.capture-player{display:block;width:100%;max-height:340px}
+.capture-switch[aria-pressed="true"]{background:#e4ebd8;border-color:#808d72}
+@media(max-width:680px){.hero,.split{grid-template-columns:minmax(0,1fr)}.hero{min-height:0;padding:26px 0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="shell bar">
+    <a href="#beranda" class="brand"><span class="mark" aria-hidden="true">B.</span> Berani Bicara</a>
+    <nav aria-label="Menu utama">
+      <a href="#beranda">Beranda</a><a href="#materi">Materi</a><a href="#latihan">Latihan</a><a href="#kuis">Kuis</a><a href="#progres">Progres</a>
+    </nav>
+  </div>
+</header>
+<main class="shell">
+  <section id="beranda" class="view">
+    <div class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Studio public speaking · SMP &amp; SMK</p>
+        <h1>Latihan bicara,<br><em>satu menit.</em></h1>
+        <p>Pelajari tekniknya, coba dengan kamera atau mikrofon, lalu putar ulang untuk mengecek cara penyampaianmu.</p>
+        <div class="actions"><a class="btn" href="#latihan">Masuk studio →</a><a class="btn alt" href="#materi">Buka materi</a></div>
+      </div>
+      <figure class="prompt-card"><figcaption>Contoh latihan · 60 detik</figcaption><blockquote>“Ceritakan satu hal yang kamu kuasai dan bagaimana kamu mempelajarinya.”</blockquote></figure>
+    </div>
+    <div class="home-section">
+      <h2>Mulai dari sini</h2>
+      <div class="grid">
+        <article class="tile"><h3>Belajar tekniknya</h3><p>Delapan materi dengan contoh kalimat dan tugas singkat.</p><a href="#materi">Lihat materi →</a></article>
+        <article class="tile"><h3>Coba di depan timer</h3><p>Pilih tantangan, susun poin bicara, lalu nilai latihanmu.</p><a href="#latihan">Buka studio →</a></article>
+        <article class="tile"><h3>Uji pemahaman</h3><p>Jawab kuis situasi nyata dan baca pembahasan tiap soal.</p><a href="#kuis">Mulai kuis →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="materi" class="view" hidden>
+    <div class="section-head"><h2>Materi public speaking</h2><p>Pilih teknik yang ingin kamu coba. Tandai materi setelah kamu membaca dan mencoba latihannya.</p></div>
+    <div id="module-list" class="grid"></div>
+    <article class="panel lesson-body" id="lesson" hidden></article>
+  </section>
+
+  <section id="latihan" class="view" hidden>
+    <div class="section-head"><h2>Studio latihan</h2><p>Mulai sendiri atau minta teman menilai dengan rubrik yang sama.</p></div>
+    <div class="split">
+      <article class="panel stack">
+        <h3>Topik dan timer</h3>
+        <div class="fields">
+          <label>Jenjang<select id="level"><option>SMP</option><option>SMK</option></select></label>
+          <label>Jenis latihan<select id="mode"><option value="semua">Semua topik</option><option value="cerita">Bercerita</option><option value="presentasi">Presentasi</option><option value="persuasi">Persuasi</option><option value="simulasi">Simulasi</option><option value="bebas">Topik sendiri</option></select></label>
+          <label>Waktu bicara<select id="duration"><option value="30">30 detik</option><option value="60" selected>1 menit</option><option value="120">2 menit</option><option value="180">3 menit</option><option value="300">5 menit</option></select></label>
+          <label>Waktu persiapan<select id="preparation"><option value="0">Langsung mulai</option><option value="15">15 detik</option><option value="30" selected>30 detik</option><option value="60">1 menit</option></select></label>
+        </div>
+        <div class="topic" aria-live="polite"><strong id="topic-title"></strong><p id="topic-hint"></p></div>
+        <button id="random" class="btn alt" type="button">Acak topik</button>
+        <label id="custom-wrap" hidden>Judul topikmu<input type="text" id="custom" maxlength="140" placeholder="Misalnya, cara menyiapkan pameran kelas"></label>
+        <div class="clock">
+          <p id="phase" role="status">Siap latihan</p>
+          <span id="clock" class="timer" role="timer" aria-label="Sisa waktu">01:00</span>
+          <progress id="timer-progress" class="track" aria-label="Waktu pada tahap ini" value="60" max="60"></progress>
+          <div class="actions"><button id="start" class="btn lime" type="button">Mulai</button><button id="finish" class="btn alt" type="button" disabled>Akhiri bicara</button><button id="reset-timer" class="btn alt" type="button" disabled>Atur ulang</button></div>
+        </div>
+        <p class="status" id="practice-status" role="status"></p>
+      </article>
+      <div class="stack studio-output">
+        <article class="panel stack">
+          <h3>Kamera dan mikrofon</h3>
+          <div class="capture-preview">
+            <span id="camera-off">Kamera mati</span>
+            <video id="capture-preview" autoplay muted playsinline hidden aria-label="Pratinjau kamera"></video>
+            <span id="capture-badge" class="capture-badge" hidden>Merekam</span>
+          </div>
+          <div class="actions">
+            <button id="camera" class="btn ghost capture-switch" type="button" aria-pressed="false">Kamera · Mati</button>
+            <button id="microphone" class="btn ghost capture-switch" type="button" aria-pressed="false">Mikrofon · Mati</button>
+          </div>
+          <label id="signal-meter" hidden>Sinyal mikrofon <meter id="signal-level" min="0" max="1" value="0"></meter></label>
+          <p id="capture-status" class="status" role="status"></p>
+          <p class="muted">Rekaman dimulai saat timer bicara berjalan. Hasilnya bisa diputar atau diunduh di halaman ini.</p>
+        </article>
+        <article id="capture-review" class="panel stack" hidden>
+          <h3>Putar ulang dan koreksi</h3>
+          <video id="review-video" class="capture-player" controls playsinline hidden aria-label="Putar rekaman video"></video>
+          <audio id="review-audio" class="capture-player" controls hidden aria-label="Putar rekaman suara"></audio>
+          <a id="capture-download" class="btn alt" download>Unduh rekaman</a>
+          <ul id="capture-tips"></ul>
+        </article>
+        <form id="notes" class="panel stack">
+          <h3>Kerangka bicara</h3>
+          <label>Pembuka<textarea name="opening" maxlength="700" placeholder="Pertanyaan, cerita, atau kalimat pembuka"></textarea></label>
+          <label>Isi<textarea name="body" maxlength="1600" placeholder="Poin utama, alasan, dan contoh"></textarea></label>
+          <label>Penutup<textarea name="closing" maxlength="700" placeholder="Ringkasan atau ajakan yang jelas"></textarea></label>
+          <button class="btn alt" type="submit">Simpan draf</button>
+          <p id="notes-status" class="status" role="status"></p>
+        </form>
+        <form id="reflection" class="panel stack">
+          <h3>Rubrik dan refleksi</h3>
+          <p>Skor 1 berarti perlu latihan, 3 berarti cukup konsisten, dan 5 berarti sudah kuat. Isi setelah sesi bicara selesai.</p>
+          <fieldset id="rubric" class="stack" disabled>
+            <div class="fields" id="rubric-fields"></div>
+            <label>Penilai<select name="reviewer"><option>Diri sendiri</option><option>Teman</option><option>Guru</option></select></label>
+            <label>Yang sudah berjalan baik<textarea name="strength" maxlength="500"></textarea></label>
+            <label>Target latihan berikutnya<textarea name="target" maxlength="500" required placeholder="Contoh, beri jeda setelah poin utama"></textarea></label>
+            <button class="btn" type="submit">Simpan sesi</button>
+          </fieldset>
+          <p id="reflection-status" class="status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="kuis" class="view" hidden>
+    <div class="section-head"><h2>Kuis public speaking</h2><p>Delapan situasi yang bisa kamu temui saat presentasi atau wawancara.</p></div>
+    <article class="panel qbox" id="quiz"></article>
+  </section>
+
+  <section id="progres" class="view" hidden>
+    <div class="section-head"><h2>Progres belajarmu</h2><p>Materi, skor kuis, dan sesi tersimpan di browser ini.</p></div>
+    <div class="grid stats" id="stats"></div>
+    <article class="panel">
+      <h3>Riwayat latihan</h3>
+      <div class="actions"><button class="btn alt" id="export" type="button">Unduh progres JSON</button></div>
+      <p class="status" id="history-status" role="status"></p>
+      <ul class="history" id="history"></ul>
+    </article>
+  </section>
+  <p id="storage-status" class="status" role="status"></p>
+</main>
+<footer><div class="shell">Berani Bicara · Latihan public speaking untuk SMP dan SMK</div></footer>
+<script>
+"use strict";
+
+const lessons = [
+  {
+    title: "Mulai dan kelola gugup", time: 4, description: "Siapkan langkah kecil sebelum tampil.",
+    intro: "Tetapkan satu hal yang ingin dipahami pendengar. Saat kamu tahu tujuanmu, kamu bisa memilih kalimat dan contoh yang sesuai.",
+    steps: ["Tulis pesan utama dalam satu kalimat.", "Ucapkan pembuka dua kali dengan suara biasa.", "Saat mendapat giliran, berdiri mantap, ambil jeda singkat, lalu mulai."],
+    example: "Hari ini aku mau menunjukkan satu cara agar jadwal piket kita lebih mudah diikuti.",
+    task: "Ucapkan pembuka 15 detik ke satu teman. Minta dia mengulang pesan utama yang dia tangkap."
+  },
+  {
+    title: "Susun pembuka, isi, penutup", time: 5, description: "Buat alur yang gampang diikuti.",
+    intro: "Pembuka memberi arah, isi menjawab janji pembuka, dan penutup membantu pendengar mengingat pesan atau tahu tindakan berikutnya.",
+    steps: ["Buka dengan pertanyaan atau situasi yang dekat dengan pendengar.", "Kembangkan satu atau dua poin, masing-masing dengan contoh.", "Ulangi pesan utama dan beri ajakan yang bisa dilakukan."],
+    example: "Pernah bingung kapan tugas dikumpulkan? Kalender kelas menyatukan semua tanggal. Mulai hari ini, cek kalender sebelum pulang.",
+    task: "Tulis tiga baris untuk sebuah topik. Bicara 60 detik hanya dengan melihat tiga baris itu."
+  },
+  {
+    title: "Atur suara, tempo, dan jeda", time: 5, description: "Bicaralah supaya kalimat mudah ditangkap.",
+    intro: "Tempo dan jeda memberi waktu kepada pendengar untuk memahami poinmu. Tekankan kata yang membawa makna utama.",
+    steps: ["Baca satu kalimat dengan volume yang terdengar sampai belakang ruangan.", "Beri jeda singkat setelah kalimat utama.", "Perlambat saat menyebut angka, nama, atau instruksi baru."],
+    example: "Kita butuh satu perubahan. [Jeda] Mulai besok, alat yang selesai dipakai langsung kembali ke rak.",
+    task: "Bacakan contoh dua kali. Pada percobaan kedua, tambah jeda dan minta teman menyebut bagian yang paling ia ingat."
+  },
+  {
+    title: "Gunakan kontak mata dan gestur", time: 4, description: "Arahkan perhatian dengan bahasa tubuh.",
+    intro: "Arah pandang dan gerakan tangan bisa membantu pendengar tahu kapan kamu beralih ke poin baru.",
+    steps: ["Berdiri dengan posisi nyaman dan stabil.", "Arahkan pandangan bergantian ke beberapa bagian ruangan.", "Pakai gestur sederhana untuk menunjukkan urutan atau ukuran."],
+    example: "Ada tiga langkah. [Tunjukkan tiga jari] Siapkan alat, coba prosedurnya, lalu catat hasil.",
+    task: "Jelaskan tiga langkah selama 30 detik. Minta teman memberi satu catatan tentang arah pandang atau gestur."
+  },
+  {
+    title: "Bicara spontan dengan PREP", time: 6, description: "Jawab pertanyaan dengan poin, alasan, contoh, dan penegasan.",
+    intro: "PREP membantu saat topik baru diberikan. Urutannya Point, Reason, Example, lalu Point. Ucapkan pendapat, alasan, dan contoh sebelum menegaskan kembali pendapatmu.",
+    steps: ["Nyatakan pendapat dalam satu kalimat.", "Pilih satu alasan dan beri contoh yang spesifik.", "Tutup dengan versi singkat dari pendapatmu."],
+    example: "Menurutku kerja kelompok perlu pembagian tugas. Dengan begitu, semua orang tahu tanggung jawabnya. Saat bikin poster, satu orang bisa riset dan yang lain membuat desain. Jadi, bagi tugas sejak awal.",
+    task: "Jawab pertanyaan «Perlukah setiap kelas punya jadwal baca?» dalam 60 detik dengan PREP."
+  },
+  {
+    title: "Bercerita dengan runtut", time: 5, description: "Hidupkan cerita dengan detail dan satu perubahan.",
+    intro: "Cerita singkat bisa dimulai dari satu keadaan, satu kejadian yang mengubahnya, dan satu pelajaran.",
+    steps: ["Sebutkan kapan dan di mana cerita mulai.", "Pilih satu kejadian dan satu detail yang mudah dibayangkan.", "Sampaikan apa yang kamu pelajari atau lakukan sesudahnya."],
+    example: "Saat presentasi pertama, slide kelompokku belum tampil. Aku buka dengan cerita sambil menunggu laptop siap. Sejak itu aku selalu siapkan pembuka yang bisa kusampaikan tanpa melihat slide.",
+    task: "Ceritakan pengalaman membantu teman dalam 60 detik. Pilih satu detail yang bikin pendengar bisa membayangkan situasinya."
+  },
+  {
+    title: "Presentasi proyek dan tanya jawab", time: 6, description: "Terangkan hasil kerja dengan contoh dan bukti.",
+    intro: "Presentasi proyek menjawab empat pertanyaan. Masalah apa yang ditemukan, apa yang kamu buat, bagaimana kamu mengujinya, dan apa hasilnya?",
+    steps: ["Sebut masalah dan siapa yang mengalaminya.", "Perlihatkan satu contoh hasil atau satu angka dari pengujian yang benar-benar kamu lakukan.", "Saat ditanya, dengarkan, ulangi inti pertanyaan jika perlu, lalu jawab singkat. Kalau datanya belum ada, jelaskan apa yang perlu dicek."],
+    example: "Kami ingin tahu apakah daftar pinjam mudah dipakai. Saat diuji, empat dari lima teman bisa menemukan status alat. Kami akan memperjelas tombol pencarian untuk percobaan berikutnya.",
+    task: "Presentasikan kegiatan kelompokmu dalam dua menit. Minta seorang teman mengajukan satu pertanyaan."
+  },
+  {
+    title: "Wawancara dengan STAR", time: 6, description: "Ceritakan tindakanmu lewat pengalaman nyata.",
+    intro: "STAR berarti Situation, Task, Action, dan Result. Teknik ini membantu menjawab pertanyaan seperti «Ceritakan saat kamu menyelesaikan masalah dalam tim.»",
+    steps: ["Jelaskan situasi dan apa tanggung jawabmu.", "Ceritakan tindakan yang benar-benar kamu ambil.", "Sebutkan hasil atau pelajaran yang bisa kamu bawa ke tugas berikutnya."],
+    example: "Menjelang pameran, satu poster belum selesai. Tugasku menyiapkan tampilan meja. Aku membagi isi poster ke dua orang dan memeriksa hasilnya. Meja siap sebelum pembukaan.",
+    task: "Latihan berpasangan. Jawab satu pertanyaan tentang kerja tim dalam 90 detik, lalu tukar peran."
+  }
+];
+
+const topics = {
+  SMP: {
+    cerita: ["Ceritakan hobi favoritmu dan alasan kamu menikmatinya.", "Ceritakan saat kamu berhasil mencoba sesuatu yang baru.", "Ceritakan pengalaman seru saat kerja kelompok."],
+    presentasi: ["Jelaskan cara memainkan permainan favoritmu.", "Terangkan bagaimana kamu menyiapkan tugas kelompok.", "Jelaskan satu cara menghemat air di sekolah."],
+    persuasi: ["Ajak teman mencoba satu kegiatan ekskul.", "Usulkan perubahan kecil agar kelas lebih nyaman.", "Ajak teman membawa botol minum sendiri."],
+    simulasi: ["Perkenalkan dirimu sebagai calon pengurus kelas.", "Sambut siswa baru dan kenalkan kegiatan sekolah.", "Jawab pertanyaan guru tentang pembagian tugas kelompokmu."]
+  },
+  SMK: {
+    cerita: ["Ceritakan pengalaman menyelesaikan masalah saat praktik.", "Ceritakan satu kesalahan kerja yang memberimu pelajaran.", "Ceritakan bagaimana timmu menyelesaikan tugas yang mendekati tenggat."],
+    presentasi: ["Presentasikan hasil praktik dari jurusanmu.", "Jelaskan cara menggunakan alat atau aplikasi yang kamu kuasai.", "Tunjukkan masalah, solusi, dan hasil uji proyek kelompokmu."],
+    persuasi: ["Tawarkan satu produk buatan kelompok kepada calon pembeli.", "Usulkan perubahan alur kerja agar praktik lebih rapi.", "Yakinkan panitia untuk memakai idemu dalam pameran sekolah."],
+    simulasi: ["Perkenalkan dirimu dalam wawancara magang.", "Jawab pertanyaan wawancara tentang cara kamu bekerja dalam tim.", "Tanggapi pertanyaan pengunjung saat mendemokan produk sekolah."]
+  }
+};
+const hints = {
+  cerita: "Mulai dari situasi, ceritakan kejadian penting, lalu tutup dengan pelajaran.",
+  presentasi: "Jelaskan tujuan, beri satu contoh, lalu rangkum poin utama.",
+  persuasi: "Gunakan PREP dan tutup dengan satu ajakan yang jelas.",
+  simulasi: "Bayangkan siapa lawan bicaramu. Gunakan contoh nyata dan jawab langsung."
+};
+const criteria = ["Struktur", "Kejelasan suara", "Tempo dan jeda", "Bahasa tubuh"];
+
+const questions = [
+  ["Kamu presentasi selama satu menit. Bagaimana membukanya?", ["Baca seluruh isi slide pertama.", "Ajukan satu pertanyaan yang terkait topik.", "Sebut semua detail teknis sejak awal."], 1, "Pertanyaan singkat membantu pendengar masuk ke topik dan memancing perhatian."],
+  ["Apa yang paling membantu saat menyampaikan angka penting?", ["Sebut dengan cepat supaya hemat waktu.", "Sebut sambil membalik badan.", "Perlambat dan beri jeda setelah menyebutnya."], 2, "Perlambatan dan jeda memberi pendengar waktu menangkap angka."],
+  ["Dalam PREP, apa yang datang setelah alasan?", ["Contoh yang mendukung.", "Topik baru.", "Perkenalan ulang."], 0, "Urutannya poin, alasan, contoh, lalu penegasan poin."],
+  ["Seorang penonton bertanya soal data yang belum kamu punya. Apa respons yang tepat?", ["Berikan angka perkiraan seolah sudah diuji.", "Jelaskan data apa yang perlu dicek.", "Ulangi presentasi dari awal."], 1, "Jelaskan batas informasi yang kamu punya dan langkah pengecekannya."],
+  ["Bagian Action dalam STAR berisi apa?", ["Hasil akhir tim.", "Deskripsi ruangan.", "Langkah yang kamu ambil."], 2, "Action menunjukkan tindakanmu saat menghadapi tugas atau masalah."],
+  ["Penutup mana yang paling jelas untuk ajakan menjaga kebersihan kelas?", ["Mulai besok, buang sampah ke tempatnya sebelum keluar kelas.", "Itu saja pokoknya.", "Mungkin nanti kita bahas sesuatu lagi."], 0, "Ajakan yang jelas memberi tindakan dan waktu yang mudah dipahami."],
+  ["Arah pandang seperti apa yang membantu saat berbicara ke satu kelas?", ["Terus melihat satu sudut.", "Lihat beberapa bagian ruangan bergantian.", "Fokus pada layar selama presentasi."], 1, "Pandangan yang terbagi membantu menjangkau lebih banyak pendengar."],
+  ["Umpan balik mana yang paling mudah langsung dicoba?", ["Lebih bagus lagi, ya.", "Pokoknya harus percaya diri.", "Coba beri jeda setelah menyampaikan poin utama."], 2, "Umpan balik yang spesifik memberi tindakan yang bisa dicoba di sesi berikutnya."]
+];
+
+const $ = (id) => document.getElementById(id);
+const storageKey = "berani-bicara-v1";
+const initialState = {completed: [], sessions: [], notes: {}, bestQuiz: null};
+let data = {...initialState};
+try {
+  const saved = JSON.parse(localStorage.getItem(storageKey));
+  if (saved && typeof saved === "object") data = {...initialState, ...saved};
+} catch {
+  $("storage-status").textContent = "Data sebelumnya tidak dapat dibaca di browser ini.";
+}
+function persist() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    $("storage-status").textContent = "";
+    return true;
+  } catch {
+    $("storage-status").textContent = "Browser tidak bisa menyimpan data. Perubahan tersedia sampai halaman ditutup.";
+    return false;
+  }
+}
+function element(tag, content, className) {
+  const node = document.createElement(tag);
+  node.textContent = content;
+  if (className) node.className = className;
+  return node;
+}
+function button(label, style, onClick) {
+  const node = element("button", label, "btn " + style);
+  node.type = "button";
+  node.addEventListener("click", onClick);
+  return node;
+}
+function route() {
+  const known = ["beranda", "materi", "latihan", "kuis", "progres"];
+  const hash = location.hash.slice(1);
+  const active = known.includes(hash) ? hash : "beranda";
+  if (active !== "latihan" && !$("latihan").hidden) releaseDevices();
+  document.querySelectorAll(".view").forEach((view) => { view.hidden = view.id !== active; });
+  document.querySelectorAll("nav a").forEach((link) => {
+    if (link.hash === "#" + active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  if (active === "progres") renderHistory();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+
+function lessonList() {
+  const list = $("module-list");
+  list.replaceChildren();
+  lessons.forEach((lesson, index) => {
+    const done = data.completed.includes(index);
+    const card = element("article", "", "module");
+    card.append(
+      element("span", done ? "Sudah dipelajari" : lesson.time + " menit", done ? "tag done" : "tag"),
+      element("h3", lesson.title),
+      element("p", lesson.description),
+      button("Buka materi", "alt", () => openLesson(index))
+    );
+    card.lastChild.setAttribute("aria-label", "Buka materi " + lesson.title);
+    list.append(card);
+  });
+}
+function openLesson(index) {
+  const content = lessons[index];
+  const lesson = $("lesson");
+  const heading = element("h3", content.title);
+  heading.tabIndex = -1;
+  const steps = element("ol", "");
+  content.steps.forEach((step) => steps.append(element("li", step)));
+  const done = data.completed.includes(index);
+  const practiceLink = element("a", "Ke studio latihan", "btn ghost");
+  practiceLink.href = "#latihan";
+  const actions = element("div", "", "actions");
+  actions.append(button("← Semua materi", "ghost", () => {
+    lesson.hidden = true;
+    $("module-list").hidden = false;
+    $("module-list").children[index].querySelector("button").focus();
+  }), button(done ? "Batalkan tanda selesai" : "Tandai sudah dipelajari", "alt", () => {
+    data.completed = done ? data.completed.filter((item) => item !== index) : [...data.completed, index];
+    persist();
+    lessonList();
+    openLesson(index);
+  }), practiceLink);
+  lesson.replaceChildren(heading, element("p", content.intro), steps,
+    element("h3", "Contoh"), element("blockquote", content.example),
+    element("h3", "Coba sendiri"), element("p", content.task), actions);
+  $("module-list").hidden = true;
+  lesson.hidden = false;
+  heading.focus();
+}
+
+let currentTopic = null;
+function chooseTopic(randomize = false) {
+  const mode = $("mode").value;
+  const custom = mode === "bebas";
+  $("custom-wrap").hidden = !custom;
+  $("random").hidden = custom;
+  if (custom) {
+    currentTopic = null;
+    $("topic-title").textContent = "Bicara tentang topik pilihanmu";
+    $("topic-hint").textContent = "Isi judul lalu gunakan kerangka untuk menyiapkan poinmu.";
+    return;
+  }
+  const groups = Object.entries(topics[$("level").value]).filter(([kind]) => mode === "semua" || kind === mode);
+  const pool = groups.flatMap(([kind, titles]) => titles.map((title) => ({kind, title})));
+  const choices = randomize ? pool.filter(({title}) => title !== currentTopic?.title) : pool;
+  currentTopic = choices[randomize ? Math.floor(Math.random() * choices.length) : 0];
+  $("topic-title").textContent = currentTopic.title;
+  $("topic-hint").textContent = hints[currentTopic.kind];
+}
+
+let phase = "ready";
+let remaining = 0;
+let phaseDuration = 0;
+let deadline = 0;
+let paused = false;
+let interval = null;
+let session = null;
+const labels = {ready: "Siap latihan", prep: "Persiapan", speak: "Waktu bicara", done: "Sesi selesai"};
+const settings = ["level", "mode", "duration", "preparation", "random", "custom"];
+function timeText(seconds) {
+  return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+}
+function stopped() {
+  clearInterval(interval);
+  interval = null;
+}
+function renderTimer() {
+  const active = phase === "prep" || phase === "speak";
+  const speakingTime = Number($("duration").value);
+  const seconds = phase === "ready" ? speakingTime : Math.ceil(remaining / 1000);
+  const status = paused ? labels[phase] + " dijeda" : labels[phase];
+  if ($("phase").textContent !== status) $("phase").textContent = status;
+  $("clock").textContent = timeText(seconds);
+  $("timer-progress").max = phase === "ready" ? speakingTime : phaseDuration / 1000;
+  $("timer-progress").value = seconds;
+  $("start").textContent = active ? (paused ? "Lanjutkan" : "Jeda") : (phase === "done" ? "Ulangi latihan" : "Mulai");
+  $("finish").disabled = phase !== "speak";
+  $("reset-timer").disabled = phase === "ready";
+  $("rubric").disabled = phase !== "done" || session?.saved;
+  settings.forEach((id) => { $(id).disabled = phase !== "ready"; });
+  renderDevices();
+}
+function beginPhase(next, end) {
+  phase = next;
+  phaseDuration = (next === "prep" ? session.prep : session.duration) * 1000;
+  deadline = end ?? Date.now() + phaseDuration;
+  remaining = Math.max(0, deadline - Date.now());
+  if (next === "speak" && remaining > 0) startRecording();
+  renderTimer();
+}
+function finishSession() {
+  stopRecording();
+  session.elapsed = Math.min(session.duration, Math.max(1, Math.round((phaseDuration - remaining) / 1000)));
+  stopped();
+  phase = "done";
+  paused = false;
+  renderTimer();
+  $("practice-status").textContent = "Isi rubrik dan tentukan satu target untuk percobaan berikutnya.";
+}
+function tick() {
+  remaining = Math.max(0, deadline - Date.now());
+  if (remaining === 0 && phase === "prep") beginPhase("speak", deadline + session.duration * 1000);
+  if (remaining === 0 && phase === "speak") finishSession();
+  else renderTimer();
+}
+function startOrPause() {
+  if (phase === "ready" || phase === "done") {
+    const title = currentTopic?.title ?? $("custom").value.trim();
+    if (!title) {
+      $("practice-status").textContent = "Isi judul topikmu sebelum mulai.";
+      $("custom").focus();
+      return;
+    }
+    if (phase === "done" && !session.saved && !confirm("Ulangi latihan ini tanpa menyimpan sesi sebelumnya?")) return;
+    session = {title, level: $("level").value, duration: Number($("duration").value), prep: Number($("preparation").value)};
+    $("reflection").reset();
+    $("reflection-status").textContent = "";
+    $("practice-status").textContent = "";
+    beginPhase(session.prep ? "prep" : "speak");
+    interval = setInterval(tick, 200);
+    return;
+  }
+  if (paused) {
+    paused = false;
+    pauseRecording(false);
+    deadline = Date.now() + remaining;
+    interval = setInterval(tick, 200);
+  } else {
+    tick();
+    if (phase === "done") return;
+    stopped();
+    paused = true;
+    pauseRecording(true);
+  }
+  renderTimer();
+}
+function resetTimer() {
+  if (!session?.saved && !confirm("Atur ulang timer dan tutup sesi ini?")) return;
+  stopped();
+  stopRecording();
+  phase = "ready";
+  paused = false;
+  session = null;
+  $("reflection").reset();
+  $("reflection-status").textContent = "";
+  $("practice-status").textContent = "";
+  renderTimer();
+}
+$("start").addEventListener("click", startOrPause);
+$("finish").addEventListener("click", () => {
+  if (!paused) tick();
+  if (phase === "speak") finishSession();
+});
+$("reset-timer").addEventListener("click", resetTimer);
+$("random").addEventListener("click", () => chooseTopic(true));
+["level", "mode"].forEach((id) => $(id).addEventListener("change", () => {
+  $("practice-status").textContent = "";
+  chooseTopic();
+}));
+$("duration").addEventListener("change", renderTimer);
+
+for (const field of $("notes").querySelectorAll("textarea")) field.value = data.notes[field.name] || "";
+$("notes").addEventListener("submit", (event) => {
+  event.preventDefault();
+  data.notes = Object.fromEntries(new FormData(event.currentTarget));
+  $("notes-status").textContent = persist() ? "Draf tersimpan di browser ini." : "Draf tersimpan selama halaman ini terbuka.";
+});
+criteria.forEach((criterion, index) => {
+  const label = element("label", criterion);
+  const select = element("select", "");
+  select.name = "score" + index;
+  select.required = true;
+  const placeholder = element("option", "Pilih skor");
+  placeholder.value = "";
+  select.append(placeholder);
+  for (let score = 1; score <= 5; score++) select.append(element("option", String(score)));
+  label.append(select);
+  $("rubric-fields").append(label);
+});
+$("reflection").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (phase !== "done" || session.saved) return;
+  const form = new FormData(event.currentTarget);
+  const target = form.get("target").trim();
+  if (!target) {
+    $("reflection-status").textContent = "Tulis satu target latihan sebelum menyimpan.";
+    return;
+  }
+  const scores = criteria.map((_, index) => Number(form.get("score" + index)));
+  data.sessions.unshift({
+    title: session.title, level: session.level, elapsed: session.elapsed, date: new Date().toISOString(),
+    scores, strength: form.get("strength").trim(), target, reviewer: form.get("reviewer")
+  });
+  session.saved = true;
+  $("practice-status").textContent = "";
+  $("reflection-status").textContent = persist() ? "Sesi tersimpan. Buka Progres untuk melihat hasilnya." : "Sesi tersedia di Progres sampai halaman ditutup.";
+  renderTimer();
+});
+
+let quizIndex = 0;
+let quizScore = 0;
+function renderQuiz() {
+  const panel = $("quiz");
+  if (quizIndex === questions.length) {
+    data.bestQuiz = Math.max(quizScore, data.bestQuiz ?? 0);
+    persist();
+    const result = element("h3", "Skor kamu " + quizScore + "/" + questions.length);
+    result.tabIndex = -1;
+    panel.replaceChildren(result, element("p", quizScore === questions.length ?
+      "Semua jawaban tepat. Coba terapkan satu teknik di studio latihan." :
+      "Coba ulangi kuis setelah membaca kembali materi yang ingin kamu kuasai."),
+      button("Ulangi kuis", "", () => {
+        quizIndex = 0;
+        quizScore = 0;
+        renderQuiz();
+      }));
+    result.focus();
+    return;
+  }
+  const [question, options, correct, explanation] = questions[quizIndex];
+  const count = element("p", "Soal " + (quizIndex + 1) + " dari " + questions.length, "tag");
+  const form = element("form", "", "stack");
+  const field = element("fieldset", "");
+  const legend = element("legend", question);
+  legend.tabIndex = -1;
+  field.append(legend);
+  const choices = element("div", "", "options");
+  options.forEach((option, index) => {
+    const label = element("label", "", "option");
+    const input = element("input", "");
+    input.type = "radio";
+    input.name = "answer";
+    input.value = index;
+    input.required = true;
+    label.append(input, document.createTextNode(option));
+    choices.append(label);
+  });
+  field.append(choices);
+  const submit = element("button", "Periksa jawaban", "btn");
+  submit.type = "submit";
+  const feedback = element("p", "", "status");
+  feedback.setAttribute("role", "status");
+  const next = button(quizIndex + 1 === questions.length ? "Lihat skor" : "Soal berikutnya", "alt", () => {
+    quizIndex++;
+    renderQuiz();
+  });
+  next.hidden = true;
+  form.append(field, submit, feedback, next);
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (field.disabled) return;
+    const chosen = new FormData(form).get("answer");
+    if (chosen === null) return;
+    const right = Number(chosen) === correct;
+    if (right) quizScore++;
+    feedback.textContent = right ? "Tepat. " + explanation : "Jawaban yang tepat: " + options[correct] + " " + explanation;
+    field.disabled = true;
+    submit.hidden = true;
+    next.hidden = false;
+    next.focus();
+  });
+  panel.replaceChildren(count, form);
+  if (!$("kuis").hidden) legend.focus();
+}
+
+function renderHistory() {
+  const stats = $("stats");
+  const metrics = [
+    [data.completed.length + "/" + lessons.length, "Materi dipelajari"],
+    [String(data.sessions.length), "Sesi tersimpan"],
+    [data.bestQuiz === null ? "—" : data.bestQuiz + "/" + questions.length, "Skor kuis terbaik"]
+  ];
+  stats.replaceChildren(...metrics.map(([value, label]) => {
+    const tile = element("div", "", "panel stat");
+    tile.append(element("strong", value), element("span", label));
+    return tile;
+  }));
+  const history = $("history");
+  history.replaceChildren();
+  $("export").disabled = !data.sessions.length && !data.completed.length && data.bestQuiz === null && !Object.values(data.notes).some(Boolean);
+  if (!data.sessions.length) history.append(element("li", "Belum ada sesi. Selesaikan latihan dan isi rubrik untuk membuat catatan pertama.", "muted"));
+  const dateFormat = new Intl.DateTimeFormat("id-ID", {dateStyle: "medium", timeStyle: "short"});
+  data.sessions.forEach((item) => {
+    const entry = element("li", "");
+    const average = item.scores.reduce((sum, score) => sum + score, 0) / criteria.length;
+    const detail = criteria.map((label, index) => label + " " + item.scores[index] + "/5").join(" · ");
+    entry.append(
+      element("strong", item.title),
+      element("p", item.level + " · " + dateFormat.format(new Date(item.date)) + " · " + timeText(item.elapsed) + " · " + item.reviewer, "muted"),
+      element("p", "Rata-rata " + average.toLocaleString("id-ID") + "/5 · " + detail)
+    );
+    if (item.strength) entry.append(element("p", "Yang berjalan baik: " + item.strength));
+    entry.append(element("p", "Target berikutnya: " + item.target));
+    history.append(entry);
+  });
+}
+$("export").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify({rubrik: criteria, ...data}, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "progres-berani-bicara.json";
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $("history-status").textContent = "Permintaan unduhan dikirim ke browser.";
+});
+
+const inputs = {camera: null, microphone: null};
+const inputLabels = {camera: "Kamera", microphone: "Mikrofon"};
+const canRecord = Boolean(navigator.mediaDevices?.getUserMedia && window.MediaRecorder);
+let permission = null;
+let monitor = null;
+let recording = null;
+let finalizing = false;
+let recordingUrl = "";
+let playback = null;
+
+function renderDevices() {
+  const active = phase === "prep" || phase === "speak";
+  for (const [id, track] of Object.entries(inputs)) {
+    $(id).disabled = !canRecord || Boolean(permission) || active || finalizing;
+    $(id).setAttribute("aria-pressed", String(Boolean(track)));
+    const label = inputLabels[id] + (track ? " · Nyala" : " · Mati");
+    if ($(id).textContent !== label) $(id).textContent = label;
+  }
+  $("start").disabled = Boolean(permission) || finalizing;
+  $("capture-preview").hidden = !inputs.camera;
+  $("camera-off").hidden = Boolean(inputs.camera);
+  $("signal-meter").hidden = !monitor;
+  $("capture-badge").hidden = recording?.recorder.state !== "recording" || paused;
+}
+
+async function toggleInput(id) {
+  if (inputs[id]) {
+    stopInput(id);
+    return;
+  }
+  const request = Symbol();
+  permission = request;
+  renderDevices();
+  const camera = id === "camera";
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(camera
+      ? {video: {width: {ideal: 960}, height: {ideal: 540}}, audio: false}
+      : {video: false, audio: {echoCancellation: true, noiseSuppression: true}});
+    const track = stream.getTracks()[0];
+    if (request !== permission) {
+      stream.getTracks().forEach((item) => item.stop());
+      return;
+    }
+    if (!track) throw new Error("Perangkat tidak ditemukan");
+    inputs[id] = track;
+    $("capture-status").textContent = "";
+    track.addEventListener("ended", () => {
+      if (inputs[id] !== track) return;
+      stopRecording();
+      stopInput(id);
+      $("capture-status").textContent = inputLabels[id] + " terputus.";
+    });
+    if (camera) {
+      $("capture-preview").srcObject = stream;
+      $("capture-preview").play().catch(() => {});
+    } else {
+      setupMonitor(stream);
+    }
+  } catch (error) {
+    if (request !== permission) return;
+    $("capture-status").textContent = error.name === "NotAllowedError"
+      ? "Cek izin " + inputLabels[id].toLowerCase() + " di pengaturan browser."
+      : inputLabels[id] + " belum bisa dibuka. Cek sambungan atau apakah sedang dipakai aplikasi lain.";
+  } finally {
+    if (permission === request) permission = null;
+    renderDevices();
+  }
+}
+
+function setupMonitor(stream) {
+  if (!window.AudioContext) return;
+  let context;
+  try {
+    context = new AudioContext();
+    const analyser = context.createAnalyser();
+    const source = context.createMediaStreamSource(stream);
+    source.connect(analyser);
+    monitor = {context, analyser, source, samples: new Float32Array(analyser.fftSize), interval: setInterval(readSignal, 100)};
+    context.resume().catch(() => {});
+  } catch {
+    context?.close().catch(() => {});
+  }
+}
+
+function stopInput(id) {
+  inputs[id]?.stop();
+  inputs[id] = null;
+  if (id === "camera") $("capture-preview").srcObject = null;
+  else if (monitor) {
+    clearInterval(monitor.interval);
+    monitor.context.close().catch(() => {});
+    monitor = null;
+    $("signal-level").value = 0;
+  }
+  renderDevices();
+}
+
+function readSignal() {
+  if (!monitor || monitor.context.state !== "running") return;
+  const {analyser, samples} = monitor;
+  analyser.getFloatTimeDomainData(samples);
+  let energy = 0;
+  for (const value of samples) energy += value * value;
+  const level = Math.sqrt(energy / samples.length);
+  $("signal-level").value = Math.min(1, level * 4);
+  if (paused || phase !== "speak" || recording?.recorder.state !== "recording") return;
+  const now = performance.now();
+  const span = recording.last ? Math.min(200, now - recording.last) : 0;
+  recording.last = now;
+  recording.sampled += span;
+  recording.quiet = level < 0.022 ? recording.quiet + span : 0;
+  recording.longest = Math.max(recording.longest, recording.quiet);
+}
+
+function startRecording() {
+  const tracks = Object.values(inputs).filter((track) => track?.readyState === "live");
+  if (!tracks.length) return;
+  try {
+    const recorder = new MediaRecorder(new MediaStream(tracks));
+    const attempt = {recorder, chunks: [], video: Boolean(inputs.camera), audio: Boolean(inputs.microphone), last: 0, sampled: 0, quiet: 0, longest: 0};
+    recorder.addEventListener("dataavailable", (event) => { if (event.data.size) attempt.chunks.push(event.data); });
+    recorder.addEventListener("stop", () => showRecording(attempt));
+    recorder.addEventListener("error", () => {
+      $("capture-status").textContent = "Rekaman terputus. Kamu masih bisa mengisi rubrik.";
+    });
+    recorder.start(1000);
+    recording = attempt;
+    monitor?.context.resume().catch(() => {});
+    $("capture-status").textContent = "";
+  } catch {
+    $("capture-status").textContent = "Browser belum bisa merekam perangkat ini. Timer dan rubrik tetap bisa dipakai.";
+  }
+}
+
+function pauseRecording(pause) {
+  if (!recording) return;
+  recording.last = recording.quiet = 0;
+  const {recorder} = recording;
+  if (pause && recorder.state === "recording") recorder.pause();
+  if (!pause && recorder.state === "paused") recorder.resume();
+}
+
+function stopRecording() {
+  if (recording && recording.recorder.state !== "inactive") {
+    finalizing = true;
+    recording.recorder.stop();
+  }
+}
+
+function showRecording(attempt) {
+  recording = null;
+  finalizing = false;
+  renderDevices();
+  if (!attempt.chunks.length) {
+    $("capture-status").textContent = "Rekaman kosong. Coba bicara beberapa detik sebelum mengakhiri sesi.";
+    return;
+  }
+  if (playback) {
+    playback.pause();
+    playback.removeAttribute("src");
+    playback.load();
+    playback.hidden = true;
+  }
+  if (recordingUrl) URL.revokeObjectURL(recordingUrl);
+  const type = attempt.chunks[0].type || attempt.recorder.mimeType;
+  recordingUrl = URL.createObjectURL(new Blob(attempt.chunks, {type}));
+  playback = $(attempt.video ? "review-video" : "review-audio");
+  playback.src = recordingUrl;
+  playback.hidden = false;
+  const download = $("capture-download");
+  const extension = type.includes("mp4") ? (attempt.video ? "mp4" : "m4a") : type.includes("ogg") ? "ogg" : "webm";
+  download.href = recordingUrl;
+  download.download = "latihan-berani-bicara." + extension;
+  const tips = [];
+  if (attempt.video) tips.push("Lihat arah pandang, posisi tubuh, dan gestur saat menyampaikan poin utama.");
+  if (attempt.audio) tips.push("Dengarkan apakah tempo mudah diikuti. Pilih satu bagian untuk dicoba ulang.");
+  if (attempt.sampled >= 500) {
+    const seconds = (attempt.longest / 1000).toLocaleString("id-ID", {maximumFractionDigits: 1});
+    tips.push("Perkiraan jeda terpanjang " + seconds + " detik. Suara ruangan bisa ikut terhitung.");
+  }
+  $("capture-tips").replaceChildren(...tips.map((tip) => element("li", tip)));
+  $("capture-review").hidden = false;
+  $("capture-status").textContent = "Rekaman siap diputar.";
+}
+
+function releaseDevices() {
+  permission = null;
+  stopRecording();
+  stopInput("camera");
+  stopInput("microphone");
+}
+
+$("camera").addEventListener("click", () => toggleInput("camera"));
+$("microphone").addEventListener("click", () => toggleInput("microphone"));
+window.addEventListener("pagehide", releaseDevices);
+if (!canRecord) $("capture-status").textContent = "Akses rekaman tidak tersedia di halaman ini. Coba buka dengan Chrome atau Edge.";
+
+lessonList();
+chooseTopic();
+renderTimer();
+renderQuiz();
+route();
+</script>
+</body>
+</html>
