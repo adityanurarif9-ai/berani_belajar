@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Belajar dan latihan public speaking untuk siswa SMP dan SMK.">
 <title>Berani Bicara — Studio Public Speaking</title>
+<meta name="theme-color" content="#f5f0e6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23943122'/%3E%3Cpath fill='%23fff7e8' d='M11 12h26v20H23l-8 6v-6h-4z'/%3E%3Cpath stroke='%23943122' stroke-width='3' stroke-linecap='round' d='M18 21v3m6-6v9m6-7v5'/%3E%3C/svg%3E">
 <style>
 :root{color-scheme:light;--ink:#241b2f;--muted:#655b70;--paper:#faf8fc;--white:#fff;--line:#e8dfed;--plum:#2c193e;--purple:#652da0;--light:#f2e9fa;--lime:#dcf59c;--pink:#ffbcb9;--radius:22px}
 *{box-sizing:border-box}
@@ -109,17 +111,77 @@ nav a[aria-current]{background:transparent;border-radius:0;box-shadow:inset 0 -2
 select,input[type=text],textarea{background:var(--white);border-color:var(--line)}
 .studio-output{min-width:0}
 .capture-preview{position:relative;display:grid;place-items:center;aspect-ratio:16/9;background:#232623;color:#eee5d9;border-radius:5px;overflow:hidden}
-.capture-preview video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.capture-preview video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:scaleX(-1)}
 .capture-badge{position:absolute;top:10px;left:10px;background:#943122;color:white;padding:3px 9px;border-radius:3px;font-size:.8rem}
 .capture-player{display:block;width:100%;max-height:340px}
 .capture-switch[aria-pressed="true"]{background:#e4ebd8;border-color:#808d72}
 @media(max-width:680px){.hero,.split{grid-template-columns:minmax(0,1fr)}.hero{min-height:0;padding:26px 0}}
+.brand{gap:12px}
+.brand-logo{display:block;width:40px;height:40px;flex:none}
+.brand-logo rect{fill:var(--purple)}
+.brand-logo .bubble{fill:#fff7e8}
+.brand-logo .voice{stroke:var(--purple)}
+.studio-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:0;margin:0 0 18px;list-style:none;border:1px solid var(--line);border-radius:var(--radius);background:var(--white)}
+.studio-nav li{padding:12px clamp(8px,2vw,18px);font-size:.86rem;font-weight:750;color:var(--muted);border-bottom:3px solid transparent}
+.studio-nav li+li{border-left:1px solid var(--line)}
+.studio-nav [aria-current="step"]{border-bottom-color:var(--purple);background:var(--light);color:var(--purple)}
+.studio-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"setup devices" "setup timer" "result result";gap:16px;align-items:start}
+.studio-grid>*{min-width:0}
+.studio-setup{grid-area:setup}
+.studio-devices{grid-area:devices}
+.studio-timer{grid-area:timer}
+.studio-result{grid-area:result;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;scroll-margin-top:20px}
+.studio-result.only-reflection{grid-template-columns:minmax(0,1fr)}
+.panel-heading{margin-bottom:8px}
+.panel-heading+p{margin-top:0}
+.section-head{max-width:660px}
+.section-head h2{font-size:clamp(2.1rem,5vw,3.35rem)}
+.studio-options{border-top:1px solid var(--line);padding-top:12px}
+.studio-options summary{cursor:pointer;font-weight:750;min-height:40px}
+.studio-options[open] summary{margin-bottom:8px}
+.capture-preview.idle{aspect-ratio:auto;min-height:92px}
+.capture-preview span:first-child{padding:12px;text-align:center}
+.device-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.device-actions button{min-width:0;padding-inline:7px}
+.capture-switch[aria-pressed="true"]{color:#26331c}
+.clock .track{margin:10px 0 15px}
+.clock :focus-visible{outline-color:var(--lime)}
+.clock-note{font-size:.87rem}
+#clock{font-family:"IBM Plex Mono",Consolas,monospace;font-weight:650;letter-spacing:-.06em}
+#capture-tips{padding-left:20px;margin-bottom:0}
+#capture-tips li+li{margin-top:6px}
+.studio-result>form:focus-visible{outline-offset:-4px}
+@media(max-width:700px){
+  .studio-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"setup" "devices" "timer" "result"}
+  .studio-result{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:620px){
+  main.shell{padding-top:20px}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  .bar{min-height:62px;justify-content:center}
+  .bar nav{position:fixed;z-index:10;inset:auto 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;background:var(--white);padding:4px 6px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+  .bar nav a{min-height:48px;display:grid;place-items:center;padding-inline:2px;text-align:center;font-size:.78rem}
+  .btn,select,input[type=text],summary{min-height:44px}
+  select,input[type=text],textarea{font-size:16px}
+  .studio-nav li{font-size:.78rem}
+  .hero-content .actions{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  .hero h1{font-size:clamp(2.8rem,12vw,4.1rem)}
+  .prompt-card{padding:18px}
+  .clock{padding:17px}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="shell bar">
-    <a href="#beranda" class="brand"><span class="mark" aria-hidden="true">B.</span> Berani Bicara</a>
+    <a href="#beranda" class="brand">
+      <svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="10"/>
+        <path class="bubble" d="M11 12h26v20H23l-8 6v-6h-4z"/>
+        <path class="voice" stroke-width="3" stroke-linecap="round" d="M18 21v3m6-6v9m6-7v5"/>
+      </svg>
+      <span>Berani Bicara</span>
+    </a>
     <nav aria-label="Menu utama">
       <a href="#beranda">Beranda</a><a href="#materi">Materi</a><a href="#latihan">Latihan</a><a href="#kuis">Kuis</a><a href="#progres">Progres</a>
     </nav>
@@ -153,61 +215,82 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
   </section>
 
   <section id="latihan" class="view" hidden>
-    <div class="section-head"><h2>Studio latihan</h2><p>Mulai sendiri atau minta teman menilai dengan rubrik yang sama.</p></div>
-    <div class="split">
-      <article class="panel stack">
-        <h3>Topik dan timer</h3>
+    <div class="section-head"><h2>Studio latihan</h2><p>Pilih topik, latihan dengan timer, lalu catat satu hal yang ingin kamu perbaiki.</p></div>
+    <ol class="studio-nav" aria-label="Tahap latihan">
+      <li id="step-setup" aria-current="step">1. Siapkan</li>
+      <li id="step-practice">2. Latihan</li>
+      <li id="step-result">3. Evaluasi</li>
+    </ol>
+    <div class="studio-grid">
+      <article class="panel stack studio-setup">
+        <h3 class="panel-heading">Pilih topik</h3>
         <div class="fields">
           <label>Jenjang<select id="level"><option>SMP</option><option>SMK</option></select></label>
           <label>Jenis latihan<select id="mode"><option value="semua">Semua topik</option><option value="cerita">Bercerita</option><option value="presentasi">Presentasi</option><option value="persuasi">Persuasi</option><option value="simulasi">Simulasi</option><option value="bebas">Topik sendiri</option></select></label>
-          <label>Waktu bicara<select id="duration"><option value="30">30 detik</option><option value="60" selected>1 menit</option><option value="120">2 menit</option><option value="180">3 menit</option><option value="300">5 menit</option></select></label>
-          <label>Waktu persiapan<select id="preparation"><option value="0">Langsung mulai</option><option value="15">15 detik</option><option value="30" selected>30 detik</option><option value="60">1 menit</option></select></label>
         </div>
         <div class="topic" aria-live="polite"><strong id="topic-title"></strong><p id="topic-hint"></p></div>
-        <button id="random" class="btn alt" type="button">Acak topik</button>
+        <button id="random" class="btn alt" type="button">Ganti topik</button>
         <label id="custom-wrap" hidden>Judul topikmu<input type="text" id="custom" maxlength="140" placeholder="Misalnya, cara menyiapkan pameran kelas"></label>
-        <div class="clock">
-          <p id="phase" role="status">Siap latihan</p>
-          <span id="clock" class="timer" role="timer" aria-label="Sisa waktu">01:00</span>
-          <progress id="timer-progress" class="track" aria-label="Waktu pada tahap ini" value="60" max="60"></progress>
-          <div class="actions"><button id="start" class="btn lime" type="button">Mulai</button><button id="finish" class="btn alt" type="button" disabled>Akhiri bicara</button><button id="reset-timer" class="btn alt" type="button" disabled>Atur ulang</button></div>
-        </div>
-        <p class="status" id="practice-status" role="status"></p>
-      </article>
-      <div class="stack studio-output">
-        <article class="panel stack">
-          <h3>Kamera dan mikrofon</h3>
-          <div class="capture-preview">
-            <span id="camera-off">Kamera mati</span>
-            <video id="capture-preview" autoplay muted playsinline hidden aria-label="Pratinjau kamera"></video>
-            <span id="capture-badge" class="capture-badge" hidden>Merekam</span>
+        <details class="studio-options">
+          <summary>Pengaturan waktu</summary>
+          <div class="fields">
+            <label>Waktu bicara<select id="duration"><option value="30">30 detik</option><option value="60" selected>1 menit</option><option value="120">2 menit</option><option value="180">3 menit</option><option value="300">5 menit</option></select></label>
+            <label>Waktu persiapan<select id="preparation"><option value="0">Langsung mulai</option><option value="15">15 detik</option><option value="30" selected>30 detik</option><option value="60">1 menit</option></select></label>
           </div>
-          <div class="actions">
+        </details>
+        <details class="studio-options">
+          <summary>Kerangka bicara <span class="muted">(opsional)</span></summary>
+          <form id="notes" class="stack">
+            <label>Pembuka<textarea name="opening" maxlength="700" placeholder="Pertanyaan, cerita, atau kalimat pembuka"></textarea></label>
+            <label>Isi<textarea name="body" maxlength="1600" placeholder="Poin utama, alasan, dan contoh"></textarea></label>
+            <label>Penutup<textarea name="closing" maxlength="700" placeholder="Ringkasan atau ajakan yang jelas"></textarea></label>
+            <button class="btn alt" type="submit">Simpan draf</button>
+            <p id="notes-status" class="status" role="status"></p>
+          </form>
+        </details>
+      </article>
+      <article class="panel stack studio-devices">
+          <h3 class="panel-heading">Rekam latihan <span class="muted">(opsional)</span></h3>
+          <p class="muted">Pilih kamera untuk video dan mikrofon untuk suara. Rekaman dimulai saat waktu bicara berjalan.</p>
+          <div class="device-actions">
             <button id="camera" class="btn ghost capture-switch" type="button" aria-pressed="false">Kamera · Mati</button>
             <button id="microphone" class="btn ghost capture-switch" type="button" aria-pressed="false">Mikrofon · Mati</button>
           </div>
+          <div id="capture-frame" class="capture-preview idle">
+            <span id="camera-off">Pratinjau muncul setelah kamera dinyalakan.</span>
+            <video id="capture-preview" autoplay muted playsinline hidden aria-label="Pratinjau kamera"></video>
+            <span id="capture-badge" class="capture-badge" hidden>Merekam</span>
+          </div>
           <label id="signal-meter" hidden>Sinyal mikrofon <meter id="signal-level" min="0" max="1" value="0"></meter></label>
           <p id="capture-status" class="status" role="status"></p>
-          <p class="muted">Rekaman dimulai saat timer bicara berjalan. Hasilnya bisa diputar atau diunduh di halaman ini.</p>
-        </article>
+      </article>
+      <article class="panel stack studio-timer">
+        <h3 class="panel-heading">Timer latihan</h3>
+        <div class="clock">
+          <p id="phase" role="status">Siap latihan</p>
+          <span id="clock" class="timer" role="timer" aria-label="Waktu latihan">01:00</span>
+          <p id="timer-note" class="clock-note"></p>
+          <progress id="timer-progress" class="track" aria-label="Sisa waktu pada tahap ini" value="60" max="60"></progress>
+          <div class="actions">
+            <button id="start" class="btn lime" type="button">Mulai latihan</button>
+            <button id="finish" class="btn alt" type="button" hidden>Akhiri bicara</button>
+            <button id="reset-timer" class="btn alt" type="button" hidden>Atur ulang</button>
+            <button id="go-review" class="btn lime" type="button" hidden>Lihat hasil</button>
+          </div>
+        </div>
+        <p class="status" id="practice-status" role="status"></p>
+      </article>
+      <div id="studio-result" class="studio-result only-reflection" hidden>
         <article id="capture-review" class="panel stack" hidden>
-          <h3>Putar ulang dan koreksi</h3>
+          <h3 id="recording-heading" tabindex="-1">Putar ulang rekaman</h3>
           <video id="review-video" class="capture-player" controls playsinline hidden aria-label="Putar rekaman video"></video>
           <audio id="review-audio" class="capture-player" controls hidden aria-label="Putar rekaman suara"></audio>
           <a id="capture-download" class="btn alt" download>Unduh rekaman</a>
           <ul id="capture-tips"></ul>
         </article>
-        <form id="notes" class="panel stack">
-          <h3>Kerangka bicara</h3>
-          <label>Pembuka<textarea name="opening" maxlength="700" placeholder="Pertanyaan, cerita, atau kalimat pembuka"></textarea></label>
-          <label>Isi<textarea name="body" maxlength="1600" placeholder="Poin utama, alasan, dan contoh"></textarea></label>
-          <label>Penutup<textarea name="closing" maxlength="700" placeholder="Ringkasan atau ajakan yang jelas"></textarea></label>
-          <button class="btn alt" type="submit">Simpan draf</button>
-          <p id="notes-status" class="status" role="status"></p>
-        </form>
         <form id="reflection" class="panel stack">
-          <h3>Rubrik dan refleksi</h3>
-          <p>Skor 1 berarti perlu latihan, 3 berarti cukup konsisten, dan 5 berarti sudah kuat. Isi setelah sesi bicara selesai.</p>
+          <h3 id="reflection-heading" tabindex="-1">Nilai sesi latihan</h3>
+          <p>Isi penilaian sendiri atau minta bantuan teman atau guru. Skor 1 berarti perlu latihan dan 5 berarti sudah kuat.</p>
           <fieldset id="rubric" class="stack" disabled>
             <div class="fields" id="rubric-fields"></div>
             <label>Penilai<select name="reviewer"><option>Diri sendiri</option><option>Teman</option><option>Guru</option></select></label>
@@ -465,18 +548,45 @@ function stopped() {
 function renderTimer() {
   const active = phase === "prep" || phase === "speak";
   const speakingTime = Number($("duration").value);
-  const seconds = phase === "ready" ? speakingTime : Math.ceil(remaining / 1000);
+  const preparationTime = Number($("preparation").value);
+  const seconds = phase === "ready" ? speakingTime : phase === "done" ? session.elapsed : Math.ceil(remaining / 1000);
   const status = paused ? labels[phase] + " dijeda" : labels[phase];
   if ($("phase").textContent !== status) $("phase").textContent = status;
-  $("clock").textContent = timeText(seconds);
+  if ($("clock").textContent !== timeText(seconds)) $("clock").textContent = timeText(seconds);
+  const timerNote = {
+    ready: preparationTime ? "Mulai dengan " + preparationTime + " detik persiapan." : "Waktu bicara langsung dimulai.",
+    prep: "Bicara saat timer berganti.",
+    speak: "Akhiri saat kamu sudah selesai bicara.",
+    done: "Durasi bicara."
+  }[phase];
+  if ($("timer-note").textContent !== timerNote) $("timer-note").textContent = timerNote;
   $("timer-progress").max = phase === "ready" ? speakingTime : phaseDuration / 1000;
   $("timer-progress").value = seconds;
-  $("start").textContent = active ? (paused ? "Lanjutkan" : "Jeda") : (phase === "done" ? "Ulangi latihan" : "Mulai");
-  $("finish").disabled = phase !== "speak";
-  $("reset-timer").disabled = phase === "ready";
+  $("timer-progress").hidden = phase === "done";
+  $("start").textContent = active ? (paused ? "Lanjutkan" : "Jeda") : (preparationTime ? "Mulai persiapan" : "Mulai bicara");
+  $("start").hidden = phase === "done";
+  $("finish").hidden = phase !== "speak";
+  $("reset-timer").hidden = phase === "ready";
+  $("reset-timer").textContent = phase === "done" ? "Latihan baru" : "Atur ulang";
+  $("go-review").hidden = phase !== "done";
+  $("go-review").disabled = finalizing;
   $("rubric").disabled = phase !== "done" || session?.saved;
   settings.forEach((id) => { $(id).disabled = phase !== "ready"; });
+  const activeStep = phase === "ready" ? "step-setup" : active ? "step-practice" : "step-result";
+  for (const id of ["step-setup", "step-practice", "step-result"]) {
+    if (id === activeStep) $(id).setAttribute("aria-current", "step");
+    else $(id).removeAttribute("aria-current");
+  }
+  renderReview();
   renderDevices();
+}
+
+function renderReview() {
+  const showRecording = Boolean(recordingUrl) && (phase === "done" || phase === "ready");
+  $("capture-review").hidden = !showRecording;
+  $("reflection").hidden = phase !== "done";
+  $("studio-result").hidden = phase !== "done" && !showRecording;
+  $("studio-result").classList.toggle("only-reflection", !showRecording || phase === "ready");
 }
 function beginPhase(next, end) {
   phase = next;
@@ -502,14 +612,15 @@ function tick() {
   else renderTimer();
 }
 function startOrPause() {
-  if (phase === "ready" || phase === "done") {
+  if (phase === "ready") {
     const title = currentTopic?.title ?? $("custom").value.trim();
     if (!title) {
       $("practice-status").textContent = "Isi judul topikmu sebelum mulai.";
       $("custom").focus();
       return;
     }
-    if (phase === "done" && !session.saved && !confirm("Ulangi latihan ini tanpa menyimpan sesi sebelumnya?")) return;
+    if (recordingUrl && !confirm("Mulai sesi baru? Unduh rekaman terakhir dulu jika masih dibutuhkan.")) return;
+    clearRecording();
     session = {title, level: $("level").value, duration: Number($("duration").value), prep: Number($("preparation").value)};
     $("reflection").reset();
     $("reflection-status").textContent = "";
@@ -533,7 +644,7 @@ function startOrPause() {
   renderTimer();
 }
 function resetTimer() {
-  if (!session?.saved && !confirm("Atur ulang timer dan tutup sesi ini?")) return;
+  if (!session?.saved && !confirm("Mulai dari awal tanpa menyimpan penilaian sesi ini?")) return;
   stopped();
   stopRecording();
   phase = "ready";
@@ -543,7 +654,11 @@ function resetTimer() {
   $("reflection-status").textContent = "";
   $("practice-status").textContent = "";
   renderTimer();
+  $("level").focus();
 }
+$("go-review").addEventListener("click", () => {
+  $(recordingUrl ? "recording-heading" : "reflection-heading").focus();
+});
 $("start").addEventListener("click", startOrPause);
 $("finish").addEventListener("click", () => {
   if (!paused) tick();
@@ -556,6 +671,7 @@ $("random").addEventListener("click", () => chooseTopic(true));
   chooseTopic();
 }));
 $("duration").addEventListener("change", renderTimer);
+$("preparation").addEventListener("change", renderTimer);
 
 for (const field of $("notes").querySelectorAll("textarea")) field.value = data.notes[field.name] || "";
 $("notes").addEventListener("submit", (event) => {
@@ -724,8 +840,9 @@ function renderDevices() {
     if ($(id).textContent !== label) $(id).textContent = label;
   }
   $("start").disabled = Boolean(permission) || finalizing;
+  $("capture-frame").classList.toggle("idle", !inputs.camera);
   $("capture-preview").hidden = !inputs.camera;
-  $("camera-off").hidden = Boolean(inputs.camera);
+  $("camera-off").hidden = Boolean(inputs.camera) || Boolean(recording && !paused);
   $("signal-meter").hidden = !monitor;
   $("capture-badge").hidden = recording?.recorder.state !== "recording" || paused;
 }
@@ -823,8 +940,10 @@ function startRecording() {
   const tracks = Object.values(inputs).filter((track) => track?.readyState === "live");
   if (!tracks.length) return;
   try {
+    const video = tracks.some((track) => track.kind === "video");
+    const audio = tracks.some((track) => track.kind === "audio");
     const recorder = new MediaRecorder(new MediaStream(tracks));
-    const attempt = {recorder, chunks: [], video: Boolean(inputs.camera), audio: Boolean(inputs.microphone), last: 0, sampled: 0, quiet: 0, longest: 0};
+    const attempt = {recorder, chunks: [], video, audio, last: 0, sampled: 0, quiet: 0, longest: 0};
     recorder.addEventListener("dataavailable", (event) => { if (event.data.size) attempt.chunks.push(event.data); });
     recorder.addEventListener("stop", () => showRecording(attempt));
     recorder.addEventListener("error", () => {
@@ -857,18 +976,12 @@ function stopRecording() {
 function showRecording(attempt) {
   recording = null;
   finalizing = false;
-  renderDevices();
   if (!attempt.chunks.length) {
     $("capture-status").textContent = "Rekaman kosong. Coba bicara beberapa detik sebelum mengakhiri sesi.";
+    renderTimer();
     return;
   }
-  if (playback) {
-    playback.pause();
-    playback.removeAttribute("src");
-    playback.load();
-    playback.hidden = true;
-  }
-  if (recordingUrl) URL.revokeObjectURL(recordingUrl);
+  clearRecording();
   const type = attempt.chunks[0].type || attempt.recorder.mimeType;
   recordingUrl = URL.createObjectURL(new Blob(attempt.chunks, {type}));
   playback = $(attempt.video ? "review-video" : "review-audio");
@@ -886,8 +999,21 @@ function showRecording(attempt) {
     tips.push("Perkiraan jeda terpanjang " + seconds + " detik. Suara ruangan bisa ikut terhitung.");
   }
   $("capture-tips").replaceChildren(...tips.map((tip) => element("li", tip)));
-  $("capture-review").hidden = false;
   $("capture-status").textContent = "Rekaman siap diputar.";
+  renderTimer();
+}
+
+function clearRecording() {
+  if (playback) {
+    playback.pause();
+    playback.removeAttribute("src");
+    playback.load();
+    playback.hidden = true;
+    playback = null;
+  }
+  if (recordingUrl) URL.revokeObjectURL(recordingUrl);
+  recordingUrl = "";
+  $("capture-download").removeAttribute("href");
 }
 
 function releaseDevices() {
