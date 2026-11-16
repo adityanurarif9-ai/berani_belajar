@@ -7,9 +7,12 @@ Aplikasi latihan public speaking untuk siswa SMP dan SMK. Siswa bisa menonton vi
 1. Unduh atau clone repo ini, lalu buka `index.html` di browser. Gunakan `Berani-Bicara.html` jika memakai salinan yang ada di folder Windows.
 2. Buka **Latihan**, pilih jenjang dan topik, lalu ubah durasi lewat **Pengaturan waktu** jika diperlukan.
 3. Untuk merekam, nyalakan kamera dan mikrofon sesuai kebutuhan. Berikan izin saat browser memintanya.
-4. Jalankan timer. Setelah selesai, pilih **Lihat hasil** untuk memutar rekaman dan mengisi penilaian. Unduh rekaman sebelum memulai sesi baru jika ingin menyimpannya.
+4. Jalankan timer. Setelah selesai, pilih **Lihat hasil**. Klik waktu pada catatan mikrofon untuk memutar bagian terkait.
+5. Pilih siapa yang memberi skor, misalnya **Diri sendiri** atau **Orang tua / wali**. Nilai aspek yang bisa diamati, lalu catat bagian yang perlu diperbaiki dan target berikutnya. Unduh rekaman sebelum memulai sesi baru jika ingin menyimpannya.
 
 Aplikasi berjalan di browser. Rekaman diproses di perangkat dan progres tersimpan di browser yang dipakai.
+
+Narasi video dibuat dengan [Piper, model suara Indonesia news_tts](https://huggingface.co/rhasspy/piper-voices/blob/main/id/id_ID/news_tts/medium/MODEL_CARD).
 
 ## Mengaktifkan login Google dan email
 

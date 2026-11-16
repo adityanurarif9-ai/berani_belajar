@@ -147,6 +147,18 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
 #clock{font-family:"IBM Plex Mono",Consolas,monospace;font-weight:650;letter-spacing:-.06em}
 #capture-tips{padding-left:20px;margin-bottom:0}
 #capture-tips li+li{margin-top:6px}
+.audio-findings{padding:14px;background:var(--paper);border-left:3px solid var(--purple)}
+.audio-findings h4{margin:0 0 8px}
+.audio-findings p{margin:0 0 8px}
+.audio-findings ul{margin:0;padding-left:20px}
+.audio-findings li+li{margin-top:8px}
+.cue-button{padding:3px 7px;min-height:32px;margin-right:4px}
+.rubric-items{display:grid;gap:12px}
+.rubric-item{border-bottom:1px solid var(--line);padding-bottom:12px}
+.rubric-item p{margin:5px 0;color:var(--muted);font-size:.86rem}
+.rubric-item select{max-width:240px}
+#score-summary{padding:12px;background:var(--light);border-radius:5px}
+#score-summary p:last-child,#score-summary ul:last-child{margin-bottom:0}
 .studio-result>form:focus-visible{outline-offset:-4px}
 .lesson-film{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);overflow:hidden}
 .hero .lesson-film{margin:0;align-self:center}
@@ -222,7 +234,7 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
           <source src="video-public-speaking.mp4" type="video/mp4">
           <a href="video-public-speaking.mp4">Unduh video materi</a>
         </video>
-        <figcaption class="film-caption"><strong>Tiga langkah untuk mulai bicara</strong><span>Video materi · 28 detik · Teks di video</span></figcaption>
+        <figcaption class="film-caption"><strong>Tiga langkah untuk mulai bicara</strong><span>Video materi · Narasi dan teks bahasa Indonesia</span></figcaption>
       </figure>
     </div>
     <div class="home-section">
@@ -279,7 +291,7 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
       </article>
       <article class="panel stack studio-devices">
           <h3 class="panel-heading">Rekam latihan <span class="muted">(opsional)</span></h3>
-          <p class="muted">Pilih kamera untuk video dan mikrofon untuk suara. Rekaman dimulai saat waktu bicara berjalan.</p>
+          <p class="muted">Nyalakan mikrofon agar suara ikut terekam. Ucapkan satu kalimat dan lihat apakah indikator sinyal bergerak.</p>
           <div class="device-actions">
             <button id="camera" class="btn ghost capture-switch" type="button" aria-pressed="false">Kamera · Mati</button>
             <button id="microphone" class="btn ghost capture-switch" type="button" aria-pressed="false">Mikrofon · Mati</button>
@@ -291,6 +303,7 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
           </div>
           <label id="signal-meter" hidden>Sinyal mikrofon <meter id="signal-level" min="0" max="1" value="0"></meter></label>
           <p id="capture-status" class="status" role="status"></p>
+          <p id="capture-mode" class="muted"></p>
       </article>
       <article class="panel stack studio-timer">
         <h3 class="panel-heading">Timer latihan</h3>
@@ -314,15 +327,18 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
           <video id="review-video" class="capture-player" controls playsinline hidden aria-label="Putar rekaman video"></video>
           <audio id="review-audio" class="capture-player" controls hidden aria-label="Putar rekaman suara"></audio>
           <a id="capture-download" class="btn alt" download>Unduh rekaman</a>
+          <div id="audio-findings" class="audio-findings" hidden></div>
           <ul id="capture-tips"></ul>
         </article>
         <form id="reflection" class="panel stack">
           <h3 id="reflection-heading" tabindex="-1">Nilai sesi latihan</h3>
-          <p>Isi penilaian sendiri atau minta bantuan teman atau guru. Skor 1 berarti perlu latihan dan 5 berarti sudah kuat.</p>
+          <p>Skor berasal dari orang yang menilai sesi. Putar ulang rekaman atau amati latihan langsung, lalu pilih skor untuk aspek yang bisa dinilai.</p>
           <fieldset id="rubric" class="stack" disabled>
-            <div class="fields" id="rubric-fields"></div>
-            <label>Penilai<select name="reviewer"><option>Diri sendiri</option><option>Teman</option><option>Guru</option></select></label>
+            <label>Siapa yang memberi skor?<select name="reviewer"><option>Diri sendiri</option><option>Orang tua / wali</option><option>Teman</option><option>Guru</option></select></label>
+            <div class="rubric-items" id="rubric-fields"></div>
+            <div id="score-summary" aria-live="polite" hidden></div>
             <label>Yang sudah berjalan baik<textarea name="strength" maxlength="500"></textarea></label>
+            <label>Bagian yang perlu diperbaiki<textarea name="improvement" maxlength="500" placeholder="Contoh, penutup berhenti setelah contoh tanpa merangkum pesan."></textarea></label>
             <label>Target latihan berikutnya<textarea name="target" maxlength="500" required placeholder="Contoh, beri jeda setelah poin utama"></textarea></label>
             <button class="btn" type="submit">Simpan sesi</button>
           </fieldset>
@@ -471,7 +487,14 @@ const hints = {
   persuasi: "Gunakan PREP dan tutup dengan satu ajakan yang jelas.",
   simulasi: "Bayangkan siapa lawan bicaramu. Gunakan contoh nyata dan jawab langsung."
 };
-const criteria = ["Struktur", "Kejelasan suara", "Tempo dan jeda", "Bahasa tubuh"];
+const rubricGuide = [
+  {title: "Struktur", anchors: "1: Alur sulit diikuti. 3: Pembuka dan isi cukup jelas. 5: Pembuka, isi, dan penutup tersambung.", practice: "Tulis tiga poin: pembuka, satu contoh, lalu kesimpulan."},
+  {title: "Kejelasan suara", anchors: "1: Banyak kata sulit terdengar. 3: Sebagian besar kata terdengar. 5: Kata penting terdengar jelas sampai akhir.", practice: "Ulangi kalimat utama dengan volume stabil dan ucapkan akhir katanya."},
+  {title: "Tempo dan jeda", anchors: "1: Sering terlalu cepat atau terhenti lama. 3: Tempo umumnya bisa diikuti. 5: Jeda membantu pendengar memahami poin.", practice: "Latih satu jeda setelah pesan utama dan siapkan satu kalimat penghubung."},
+  {title: "Bahasa tubuh", anchors: "1: Sering menunduk atau gestur mengganggu. 3: Sesekali menatap pendengar. 5: Tatapan dan gestur mendukung pesan.", practice: "Sampaikan kalimat pertama sambil menatap kamera atau orang yang mendengarkan."},
+  {title: "Kejelasan pesan", anchors: "1: Pesan utama sulit diingat. 3: Pesan bisa dipahami dengan bantuan contoh. 5: Pendengar bisa mengulang pesan dan contohnya.", practice: "Ucapkan pesan utama dalam satu kalimat, lalu beri satu contoh konkret."}
+];
+const criteria = rubricGuide.map(({title}) => title);
 
 const questions = [
   ["Kamu presentasi selama satu menit. Bagaimana membukanya?", ["Baca seluruh isi slide pertama.", "Ajukan satu pertanyaan yang terkait topik.", "Sebut semua detail teknis sejak awal."], 1, "Pertanyaan singkat membantu pendengar masuk ke topik dan memancing perhatian."],
@@ -691,6 +714,7 @@ function startOrPause() {
     clearRecording();
     session = {title, level: $("level").value, duration: Number($("duration").value), prep: Number($("preparation").value)};
     $("reflection").reset();
+    renderScore();
     $("reflection-status").textContent = "";
     $("practice-status").textContent = "";
     beginPhase(session.prep ? "prep" : "speak");
@@ -719,6 +743,7 @@ function resetTimer() {
   paused = false;
   session = null;
   $("reflection").reset();
+  renderScore();
   $("reflection-status").textContent = "";
   $("practice-status").textContent = "";
   renderTimer();
@@ -747,18 +772,57 @@ $("notes").addEventListener("submit", (event) => {
   data.notes = Object.fromEntries(new FormData(event.currentTarget));
   $("notes-status").textContent = persist() ? "Draf tersimpan di browser ini." : "Draf tersimpan selama halaman ini terbuka.";
 });
-criteria.forEach((criterion, index) => {
-  const label = element("label", criterion);
+rubricGuide.forEach(({title, anchors}, index) => {
+  const row = element("div", "", "rubric-item");
+  const label = element("label", title);
   const select = element("select", "");
   select.name = "score" + index;
-  select.required = true;
-  const placeholder = element("option", "Pilih skor");
+  const guide = element("p", anchors);
+  guide.id = "score-guide-" + index;
+  select.setAttribute("aria-describedby", guide.id);
+  const placeholder = element("option", "Belum dinilai");
   placeholder.value = "";
   select.append(placeholder);
   for (let score = 1; score <= 5; score++) select.append(element("option", String(score)));
   label.append(select);
-  $("rubric-fields").append(label);
+  row.append(label, guide);
+  $("rubric-fields").append(row);
 });
+$("rubric-fields").addEventListener("change", renderScore);
+$("reflection").elements.reviewer.addEventListener("change", renderScore);
+
+function rubricScores(form) {
+  return criteria.map((_, index) => Number(form.get("score" + index)) || null);
+}
+
+function scoreAverage(scores) {
+  const given = scores.filter(Number.isFinite);
+  if (!given.length) return "—";
+  return (given.reduce((sum, score) => sum + score, 0) / given.length)
+    .toLocaleString("id-ID", {maximumFractionDigits: 2});
+}
+
+function renderScore() {
+  const summary = $("score-summary");
+  const form = new FormData($("reflection"));
+  const scores = rubricScores(form);
+  summary.hidden = !scores.some(Number.isFinite);
+  summary.replaceChildren();
+  if (summary.hidden) return;
+  summary.append(element("strong", "Skor " + scoreAverage(scores) + "/5 · " + form.get("reviewer")));
+  const lowest = Math.min(...scores.filter(Number.isFinite));
+  if (lowest >= 5) return;
+  summary.append(element("p", "Prioritas perbaikan berdasarkan skormu"));
+  const focus = element("ul", "");
+  const priorities = rubricGuide.map((item, index) => ({...item, score: scores[index]}))
+    .filter(({score}) => score !== null && score <= Math.max(lowest, 3))
+    .sort((first, second) => first.score - second.score);
+  for (const {title, practice, score} of priorities) {
+    focus.append(element("li", title + " " + score + "/5 · " + practice));
+  }
+  summary.append(focus);
+}
+
 $("reflection").addEventListener("submit", (event) => {
   event.preventDefault();
   if (phase !== "done" || session.saved) return;
@@ -768,10 +832,15 @@ $("reflection").addEventListener("submit", (event) => {
     $("reflection-status").textContent = "Tulis satu target latihan sebelum menyimpan.";
     return;
   }
-  const scores = criteria.map((_, index) => Number(form.get("score" + index)));
+  const scores = rubricScores(form);
+  if (!scores.some(Number.isFinite)) {
+    $("reflection-status").textContent = "Beri skor untuk minimal satu aspek.";
+    $("rubric-fields").querySelector("select").focus();
+    return;
+  }
   data.sessions.unshift({
     title: session.title, level: session.level, elapsed: session.elapsed, date: new Date().toISOString(),
-    scores, strength: form.get("strength").trim(), target, reviewer: form.get("reviewer")
+    scores, strength: form.get("strength").trim(), improvement: form.get("improvement").trim(), target, reviewer: form.get("reviewer")
   });
   session.saved = true;
   $("practice-status").textContent = "";
@@ -864,14 +933,15 @@ function renderHistory() {
   const dateFormat = new Intl.DateTimeFormat("id-ID", {dateStyle: "medium", timeStyle: "short"});
   data.sessions.forEach((item) => {
     const entry = element("li", "");
-    const average = item.scores.reduce((sum, score) => sum + score, 0) / criteria.length;
-    const detail = criteria.map((label, index) => label + " " + item.scores[index] + "/5").join(" · ");
+    const average = scoreAverage(item.scores);
+    const detail = item.scores.flatMap((score, index) => Number.isFinite(score) ? [criteria[index] + " " + score + "/5"] : []).join(" · ");
     entry.append(
       element("strong", item.title),
       element("p", item.level + " · " + dateFormat.format(new Date(item.date)) + " · " + timeText(item.elapsed) + " · " + item.reviewer, "muted"),
-      element("p", "Rata-rata " + average.toLocaleString("id-ID") + "/5 · " + detail)
+      element("p", "Rata-rata " + average + "/5 · " + detail)
     );
     if (item.strength) entry.append(element("p", "Yang berjalan baik: " + item.strength));
+    if (item.improvement) entry.append(element("p", "Yang perlu diperbaiki: " + item.improvement));
     entry.append(element("p", "Target berikutnya: " + item.target));
     history.append(entry);
   });
@@ -913,6 +983,10 @@ function renderDevices() {
   $("camera-off").hidden = Boolean(inputs.camera) || Boolean(recording && !paused);
   $("signal-meter").hidden = !monitor;
   $("capture-badge").hidden = recording?.recorder.state !== "recording" || paused;
+  const mode = inputs.microphone
+    ? (inputs.camera ? "Video dan suara akan direkam." : "Hanya suara yang akan direkam.")
+    : (inputs.camera ? "Video akan direkam tanpa suara. Nyalakan mikrofon untuk merekam suara." : "Timer bisa dipakai tanpa rekaman.");
+  if ($("capture-mode").textContent !== mode) $("capture-mode").textContent = mode;
 }
 
 async function toggleInput(id) {
@@ -992,16 +1066,39 @@ function readSignal() {
   const {analyser, samples} = monitor;
   analyser.getFloatTimeDomainData(samples);
   let energy = 0;
-  for (const value of samples) energy += value * value;
+  let peak = 0;
+  for (const value of samples) {
+    energy += value * value;
+    peak = Math.max(peak, Math.abs(value));
+  }
   const level = Math.sqrt(energy / samples.length);
   $("signal-level").value = Math.min(1, level * 4);
   if (paused || phase !== "speak" || recording?.recorder.state !== "recording") return;
-  const now = performance.now();
-  const span = recording.last ? Math.min(200, now - recording.last) : 0;
-  recording.last = now;
+  const elapsed = performance.now() - recording.started - recording.pausedFor;
+  const span = recording.last === null ? 0 : Math.min(200, elapsed - recording.last);
+  recording.last = elapsed;
   recording.sampled += span;
-  recording.quiet = level < 0.022 ? recording.quiet + span : 0;
-  recording.longest = Math.max(recording.longest, recording.quiet);
+  if (level < 0.015) {
+    if (recording.quietFrom === null) recording.quietFrom = elapsed;
+    recording.quietFor += span;
+  } else {
+    finishQuietPeriod(recording);
+    recording.active += span;
+    if (level < 0.034) recording.soft += span;
+  }
+  if (peak >= 0.98 && !recording.atPeak) {
+    recording.peaks++;
+    recording.firstPeak ??= elapsed;
+  }
+  recording.atPeak = peak >= 0.98;
+}
+
+function finishQuietPeriod(attempt) {
+  if (attempt.quietFor >= 1200) {
+    attempt.quietPeriods.push({from: attempt.quietFrom, duration: attempt.quietFor});
+  }
+  attempt.quietFrom = null;
+  attempt.quietFor = 0;
 }
 
 function startRecording() {
@@ -1011,7 +1108,11 @@ function startRecording() {
     const video = tracks.some((track) => track.kind === "video");
     const audio = tracks.some((track) => track.kind === "audio");
     const recorder = new MediaRecorder(new MediaStream(tracks));
-    const attempt = {recorder, chunks: [], video, audio, last: 0, sampled: 0, quiet: 0, longest: 0};
+    const attempt = {
+      recorder, chunks: [], video, audio, started: performance.now(),
+      pausedAt: null, pausedFor: 0, last: null, sampled: 0, active: 0, soft: 0,
+      quietFrom: null, quietFor: 0, quietPeriods: [], peaks: 0, atPeak: false, firstPeak: null
+    };
     recorder.addEventListener("dataavailable", (event) => { if (event.data.size) attempt.chunks.push(event.data); });
     recorder.addEventListener("stop", () => showRecording(attempt));
     recorder.addEventListener("error", () => {
@@ -1028,10 +1129,18 @@ function startRecording() {
 
 function pauseRecording(pause) {
   if (!recording) return;
-  recording.last = recording.quiet = 0;
+  recording.last = null;
+  finishQuietPeriod(recording);
   const {recorder} = recording;
-  if (pause && recorder.state === "recording") recorder.pause();
-  if (!pause && recorder.state === "paused") recorder.resume();
+  if (pause && recorder.state === "recording") {
+    recording.pausedAt = performance.now();
+    recorder.pause();
+  }
+  if (!pause && recorder.state === "paused") {
+    if (recording.pausedAt !== null) recording.pausedFor += performance.now() - recording.pausedAt;
+    recording.pausedAt = null;
+    recorder.resume();
+  }
 }
 
 function stopRecording() {
@@ -1053,6 +1162,8 @@ function showRecording(attempt) {
   const type = attempt.chunks[0].type || attempt.recorder.mimeType;
   recordingUrl = URL.createObjectURL(new Blob(attempt.chunks, {type}));
   playback = $(attempt.video ? "review-video" : "review-audio");
+  playback.muted = false;
+  playback.volume = 1;
   playback.src = recordingUrl;
   playback.hidden = false;
   const download = $("capture-download");
@@ -1060,15 +1171,66 @@ function showRecording(attempt) {
   download.href = recordingUrl;
   download.download = "latihan-berani-bicara." + extension;
   const tips = [];
-  if (attempt.video) tips.push("Lihat arah pandang, posisi tubuh, dan gestur saat menyampaikan poin utama.");
-  if (attempt.audio) tips.push("Dengarkan apakah tempo mudah diikuti. Pilih satu bagian untuk dicoba ulang.");
-  if (attempt.sampled >= 500) {
-    const seconds = (attempt.longest / 1000).toLocaleString("id-ID", {maximumFractionDigits: 1});
-    tips.push("Perkiraan jeda terpanjang " + seconds + " detik. Suara ruangan bisa ikut terhitung.");
-  }
+  if (attempt.video) tips.push("Saat menonton, cek apakah mata sering turun ke catatan dan apakah gerakan tangan membantu menjelaskan poin.");
+  if (attempt.audio) tips.push("Saat mendengar, cek kata yang sulit ditangkap, kata pengisi seperti “eee”, dan apakah penutup mengulang pesan utama.");
+  renderAudioFindings(attempt);
   $("capture-tips").replaceChildren(...tips.map((tip) => element("li", tip)));
   $("capture-status").textContent = "Rekaman siap diputar.";
   renderTimer();
+}
+
+function secondsText(milliseconds) {
+  return (milliseconds / 1000).toLocaleString("id-ID", {maximumFractionDigits: 1}) + " detik";
+}
+
+function audioCue(milliseconds) {
+  return button(timeText(Math.floor(milliseconds / 1000)), "alt cue-button", () => {
+    if (!playback || playback.readyState < 1) return;
+    playback.currentTime = Math.max(0, milliseconds / 1000 - 0.3);
+    playback.play().catch(() => {});
+  });
+}
+
+function renderAudioFindings(attempt) {
+  const panel = $("audio-findings");
+  panel.hidden = false;
+  panel.replaceChildren(element("h4", "Koreksi dari mikrofon"));
+  if (!attempt.audio) {
+    panel.append(element("p", "Rekaman ini berisi video tanpa suara. Aktifkan mikrofon untuk mendapatkan koreksi suara."));
+    return;
+  }
+  if (attempt.sampled < 800) {
+    panel.append(element("p", "Sampel suara belum cukup untuk dianalisis. Putar rekamannya atau ulangi latihan dan cek meter mikrofon sebelum mulai."));
+    return;
+  }
+  const activePercent = Math.round(attempt.active / attempt.sampled * 100);
+  if (activePercent < 10) {
+    panel.append(element("p", "Sinyal terdengar sangat sedikit (" + activePercent + "% dari sampel). Cek mikrofon yang dipakai, dekatkan ke mulut, lalu coba ucapkan satu kalimat."));
+    return;
+  }
+  const quietSpeech = Math.round(attempt.soft / attempt.active * 100);
+  const findings = element("ul", "");
+  findings.append(element("li", "Volume · " + quietSpeech + "% dari bagian bersinyal berada di level rendah. " +
+    (quietSpeech >= 40 ? "Coba dekatkan mikrofon sedikit dan pertahankan volume sampai akhir kalimat." : "Putar kalimat terakhir untuk memastikan kata penting masih terdengar.")));
+  finishQuietPeriod(attempt);
+  const quiet = [...attempt.quietPeriods].sort((a, b) => b.duration - a.duration).slice(0, 3);
+  if (!quiet.length) findings.append(element("li", "Jeda · Tidak ada bagian bersinyal rendah selama 1,2 detik atau lebih."));
+  for (const {from, duration} of quiet) {
+    const item = element("li", "");
+    item.append(audioCue(from), document.createTextNode(" Jeda sekitar " + secondsText(duration) + ". Kalau tidak disengaja, siapkan kalimat penghubung sebelum poin berikutnya."));
+    findings.append(item);
+  }
+  if (attempt.peaks) {
+    const item = element("li", "");
+    item.append(audioCue(attempt.firstPeak), document.createTextNode(" Puncak suara sangat tinggi terdeteksi " + attempt.peaks + " kali. Jika terdengar pecah, beri jarak dari mikrofon."));
+    findings.append(item);
+  }
+  panel.append(
+    element("p", "Sinyal terdeteksi di " + activePercent + "% dari sampel." +
+      (quiet.length || attempt.peaks ? " Klik waktu untuk mendengar bagian terkait." : "")),
+    findings,
+    element("p", "Waktu dan level adalah perkiraan dari sinyal mikrofon. Suara sekitar bisa ikut terhitung.", "muted")
+  );
 }
 
 function clearRecording() {
