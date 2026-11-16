@@ -103,9 +103,6 @@ nav a[aria-current]{background:transparent;border-radius:0;box-shadow:inset 0 -2
 .clock p{color:#e7ddcc}
 .hero .btn.alt,.btn.alt{background:var(--light);color:var(--ink)}
 .hero :focus-visible{outline-color:var(--purple)}
-.prompt-card{margin:0;padding:26px;background:var(--white);border:1px solid var(--line);border-top:4px solid var(--purple)}
-.prompt-card figcaption{font-size:.83rem;color:var(--purple);font-weight:750}
-.prompt-card blockquote{font:clamp(1.5rem,3.4vw,2.55rem)/1.15 Georgia,serif;margin:18px 0 0}
 .tile:nth-child(n){background:transparent;border-width:0 0 1px;border-radius:0;padding-inline:0}
 .topic{border-left:3px solid var(--purple);border-radius:0}
 select,input[type=text],textarea{background:var(--white);border-color:var(--line)}
@@ -151,22 +148,46 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
 #capture-tips{padding-left:20px;margin-bottom:0}
 #capture-tips li+li{margin-top:6px}
 .studio-result>form:focus-visible{outline-offset:-4px}
+.lesson-film{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);overflow:hidden}
+.hero .lesson-film{margin:0;align-self:center}
+.lesson-film video{display:block;width:100%;aspect-ratio:16/9;background:var(--plum)}
+.film-caption{padding:14px 17px}
+.film-caption strong{display:block;font-size:1rem}
+.film-caption span{font-size:.84rem;color:var(--muted)}
+.film-link{display:inline-block;margin-bottom:16px;font-weight:750}
+.account-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:22px;align-items:start}
+.account-intro{padding:24px 0;border-top:3px solid var(--purple)}
+.account-intro h2{font-size:clamp(2.3rem,6vw,4rem)}
+.account-tabs{display:grid;grid-template-columns:1fr 1fr}
+.account-tabs button{border:0;border-bottom:2px solid var(--line);background:transparent;padding:10px;min-height:44px;font-weight:750}
+.account-tabs button[aria-pressed="true"]{color:var(--purple);border-bottom-color:var(--purple);background:var(--light)}
+.account-form{padding-top:15px}
+.account-form input[type=email],.account-form input[type=password],.account-form input[type=text]{display:block;width:100%;margin-top:5px;padding:10px 11px;min-height:44px;border:1px solid var(--line);border-radius:5px;background:var(--white);font-size:16px;font-weight:400}
+.account-form .btn,.google-button{width:100%}
+.account-form label.show-password{display:flex;align-items:center;gap:8px}
+.text-btn{background:transparent;border:0;color:var(--purple);padding:8px 0;min-height:44px;text-decoration:underline;text-align:left}
+.auth-divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.87rem;margin-block:12px}
+.auth-divider::before,.auth-divider::after{content:"";height:1px;background:var(--line);flex:1}
+.account-email{overflow-wrap:anywhere}
+.account-notice{border-left:3px solid var(--purple);padding:10px 12px;background:var(--light);font-size:.88rem}
+.google-icon{width:17px;height:17px;flex:none}
 @media(max-width:700px){
   .studio-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"setup" "devices" "timer" "result"}
   .studio-result{grid-template-columns:minmax(0,1fr)}
+  .account-layout{grid-template-columns:minmax(0,1fr);gap:12px}
+  .account-intro{padding:15px 0 0}
 }
 @media(max-width:620px){
   main.shell{padding-top:20px}
   body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
   .bar{min-height:62px;justify-content:center}
-  .bar nav{position:fixed;z-index:10;inset:auto 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;background:var(--white);padding:4px 6px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+  .bar nav{position:fixed;z-index:10;inset:auto 0 0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;background:var(--white);padding:4px 3px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
   .bar nav a{min-height:48px;display:grid;place-items:center;padding-inline:2px;text-align:center;font-size:.78rem}
   .btn,select,input[type=text],summary{min-height:44px}
   select,input[type=text],textarea{font-size:16px}
   .studio-nav li{font-size:.78rem}
   .hero-content .actions{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
   .hero h1{font-size:clamp(2.8rem,12vw,4.1rem)}
-  .prompt-card{padding:18px}
   .clock{padding:17px}
 }
 </style>
@@ -183,7 +204,7 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
       <span>Berani Bicara</span>
     </a>
     <nav aria-label="Menu utama">
-      <a href="#beranda">Beranda</a><a href="#materi">Materi</a><a href="#latihan">Latihan</a><a href="#kuis">Kuis</a><a href="#progres">Progres</a>
+      <a href="#beranda">Beranda</a><a href="#materi">Materi</a><a href="#latihan">Latihan</a><a href="#kuis">Kuis</a><a href="#progres">Progres</a><a href="#akun" id="account-link">Masuk</a>
     </nav>
   </div>
 </header>
@@ -196,7 +217,13 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
         <p>Pelajari tekniknya, coba dengan kamera atau mikrofon, lalu putar ulang untuk mengecek cara penyampaianmu.</p>
         <div class="actions"><a class="btn" href="#latihan">Masuk studio →</a><a class="btn alt" href="#materi">Buka materi</a></div>
       </div>
-      <figure class="prompt-card"><figcaption>Contoh latihan · 60 detik</figcaption><blockquote>“Ceritakan satu hal yang kamu kuasai dan bagaimana kamu mempelajarinya.”</blockquote></figure>
+      <figure class="lesson-film">
+        <video controls playsinline preload="none" poster="video-public-speaking.jpg" aria-label="Tiga langkah untuk mulai bicara">
+          <source src="video-public-speaking.mp4" type="video/mp4">
+          <a href="video-public-speaking.mp4">Unduh video materi</a>
+        </video>
+        <figcaption class="film-caption"><strong>Tiga langkah untuk mulai bicara</strong><span>Video materi · 28 detik · Teks di video</span></figcaption>
+      </figure>
     </div>
     <div class="home-section">
       <h2>Mulai dari sini</h2>
@@ -210,6 +237,7 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
 
   <section id="materi" class="view" hidden>
     <div class="section-head"><h2>Materi public speaking</h2><p>Pilih teknik yang ingin kamu coba. Tandai materi setelah kamu membaca dan mencoba latihannya.</p></div>
+    <a class="film-link" href="#beranda">Tonton video pembuka di Beranda →</a>
     <div id="module-list" class="grid"></div>
     <article class="panel lesson-body" id="lesson" hidden></article>
   </section>
@@ -318,6 +346,45 @@ select,input[type=text],textarea{background:var(--white);border-color:var(--line
       <p class="status" id="history-status" role="status"></p>
       <ul class="history" id="history"></ul>
     </article>
+  </section>
+  <section id="akun" class="view" hidden>
+    <div class="account-layout">
+      <div class="account-intro">
+        <h2>Akun Berani Bicara</h2>
+        <p class="muted">Masuk dengan Google atau buat akun memakai email. Progres latihan tersimpan di browser ini.</p>
+        <a href="#latihan" class="btn alt">Ke studio latihan</a>
+      </div>
+      <article class="panel stack" aria-label="Pilihan akun">
+        <p id="auth-notice" class="account-notice">Memeriksa layanan akun…</p>
+        <div id="auth-guest">
+          <div class="account-tabs" role="group" aria-label="Masuk atau daftar">
+            <button id="auth-login-tab" type="button" aria-pressed="true">Masuk</button>
+            <button id="auth-register-tab" type="button" aria-pressed="false">Daftar</button>
+          </div>
+          <form id="auth-form" class="account-form">
+            <fieldset id="auth-fields" class="stack" disabled>
+              <label>Email<input id="auth-email" type="email" autocomplete="email" required></label>
+              <label>Kata sandi<input id="auth-password" type="password" autocomplete="current-password" required></label>
+              <label class="show-password"><input id="auth-show-password" type="checkbox"> Tampilkan kata sandi</label>
+              <button class="btn" id="auth-submit" type="submit">Masuk dengan email</button>
+              <button class="text-btn" id="auth-reset" type="button">Lupa kata sandi?</button>
+            </fieldset>
+          </form>
+          <p class="auth-divider">atau</p>
+          <button class="btn ghost google-button" id="auth-google" type="button" disabled>
+            <svg class="google-icon" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285f4" d="M17.6 9.2c0-.6-.1-1.2-.2-1.8H9v3.4h4.8a4 4 0 0 1-1.8 2.6l2.7 2.1a8.6 8.6 0 0 0 2.9-6.3z"/><path fill="#34a853" d="M9 18c2.4 0 4.4-.8 5.7-2.5L12 13.4a5.3 5.3 0 0 1-7.9-2.8L1.3 12.7A9 9 0 0 0 9 18z"/><path fill="#fbbc05" d="M4.1 10.6a5.4 5.4 0 0 1 0-3.2L1.3 5.3a9 9 0 0 0 0 7.4z"/><path fill="#ea4335" d="M9 3.6c1.4 0 2.5.5 3.4 1.3l2.5-2.5A8.4 8.4 0 0 0 9 0a9 9 0 0 0-7.7 5.3l2.8 2.1C4.7 5.2 6.7 3.6 9 3.6z"/></svg>
+            Masuk dengan Google
+          </button>
+        </div>
+        <div id="auth-member" class="stack" hidden>
+          <h3>Sudah masuk</h3>
+          <p class="account-email" id="auth-identity"></p>
+          <button class="btn alt" id="auth-verify" type="button" hidden>Kirim ulang email verifikasi</button>
+          <button class="btn ghost" id="auth-logout" type="button">Keluar akun</button>
+        </div>
+        <p id="auth-status" class="status" role="status"></p>
+      </article>
+    </div>
   </section>
   <p id="storage-status" class="status" role="status"></p>
 </main>
@@ -450,10 +517,11 @@ function button(label, style, onClick) {
   return node;
 }
 function route() {
-  const known = ["beranda", "materi", "latihan", "kuis", "progres"];
+  const known = ["beranda", "materi", "latihan", "kuis", "progres", "akun"];
   const hash = location.hash.slice(1);
   const active = known.includes(hash) ? hash : "beranda";
   if (active !== "latihan" && !$("latihan").hidden) releaseDevices();
+  if (active !== "beranda") $("beranda").querySelector("video").pause();
   document.querySelectorAll(".view").forEach((view) => { view.hidden = view.id !== active; });
   document.querySelectorAll("nav a").forEach((link) => {
     if (link.hash === "#" + active) link.setAttribute("aria-current", "page");
@@ -1034,5 +1102,7 @@ renderTimer();
 renderQuiz();
 route();
 </script>
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
